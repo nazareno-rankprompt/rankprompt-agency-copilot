@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI Visibility Matrix</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#6b4eff; --accent:#a855f7; --ink:#0f172a; --slate:#475569; --body:#64748B;
+    --border:#E2E8F0; --lightbg:#F8FAFC;
+    --win:#22C55E; --rec:#3B82F6; --cited:#E8A838; --invis:#EF6461;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter,system-ui,sans-serif;background:#eef0f4;color:var(--ink);padding:32px 16px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .card{max-width:1040px;margin:0 auto;background:#fff;border-radius:24px;padding:40px 44px 44px;box-shadow:0 10px 40px rgba(15,23,42,.06)}
+  /* header */
+  .top{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:18px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:19px}
+  .brand .mark{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#6b4eff,#8b5cf6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px}
+  .kicker{color:var(--purple);font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase}
+  /* intro */
+  .label{color:var(--purple);font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin:26px 0 8px}
+  h1{font-size:34px;font-weight:800;line-height:1.15;letter-spacing:-.5px}
+  h1 .a{color:var(--accent)}
+  .sub{color:var(--slate);font-size:14px;line-height:1.6;margin-top:12px;max-width:760px}
+  /* controls */
+  .controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:24px 0 6px}
+  .ctl{display:flex;flex-direction:column;gap:4px}
+  .ctl span{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--body)}
+  select{font-family:inherit;font-size:13px;font-weight:600;color:var(--ink);padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:#fff;cursor:pointer;min-width:150px}
+  .timewrap{flex:1;min-width:240px;display:none}
+  .timewrap.on{display:flex;align-items:center;gap:12px}
+  .timewrap input[type=range]{flex:1;accent-color:var(--purple)}
+  .playbtn{border:none;background:var(--purple);color:#fff;font-weight:700;font-size:13px;padding:8px 14px;border-radius:10px;cursor:pointer}
+  .tdate{font-size:12px;font-weight:700;color:var(--purple);min-width:96px;text-align:right}
+  /* plot */
+  .plot-wrap{position:relative;margin-top:20px;padding-left:34px;padding-bottom:30px}
+  .yaxis{position:absolute;left:0;top:0;bottom:30px;width:24px;display:flex;align-items:center;justify-content:center}
+  .yaxis span{transform:rotate(-180deg);writing-mode:vertical-rl;color:var(--purple);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+  .xaxis{position:absolute;left:34px;right:0;bottom:0;text-align:center;color:var(--purple);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+  .plot{position:relative;width:100%;aspect-ratio:1.28/1;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+  .quad{position:absolute;width:50%;height:50%}
+  .q-rec{top:0;left:0;background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(59,130,246,.02))}
+  .q-win{top:0;right:0;background:linear-gradient(225deg,rgba(34,197,94,.10),rgba(34,197,94,.02))}
+  .q-invis{bottom:0;left:0;background:linear-gradient(45deg,rgba(239,100,97,.10),rgba(239,100,97,.02))}
+  .q-cited{bottom:0;right:0;background:linear-gradient(315deg,rgba(232,168,56,.12),rgba(232,168,56,.03))}
+  .divx{position:absolute;top:0;bottom:0;left:50%;border-left:1px solid var(--border)}
+  .divy{position:absolute;left:0;right:0;top:50%;border-top:1px solid var(--border)}
+  .qlab{position:absolute;font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:5px 9px;border-radius:6px;background:rgba(255,255,255,.7)}
+  .qlab.rec{top:14px;left:14px;color:var(--rec)}
+  .qlab.win{top:14px;right:14px;color:var(--win)}
+  .qlab.invis{bottom:14px;left:14px;color:var(--invis)}
+  .qlab.cited{bottom:14px;right:14px;color:var(--cited)}
+  .wm{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:120px;font-weight:900;color:rgba(107,78,255,.05);letter-spacing:-4px;user-select:none}
+  svg.trail{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  /* markers */
+  .pt{position:absolute;transform:translate(-50%,-50%);text-align:center;transition:left .5s ease,top .5s ease}
+  .dot{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;background:#eef1f6;color:var(--slate);border:1px solid #e2e6ee;box-shadow:0 2px 6px rgba(15,23,42,.08);margin:0 auto}
+  .pt.you .dot{width:58px;height:58px;border-radius:15px;background:var(--purple);color:#fff;font-size:15px;box-shadow:0 6px 18px rgba(107,78,255,.4);border:3px solid rgba(107,78,255,.25)}
+  .pt .nm{font-size:11px;font-weight:600;color:var(--slate);margin-top:5px;white-space:nowrap}
+  .pt.you .nm{color:var(--purple);font-weight:700}
+  /* legend cards */
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:30px}
+  .pc{border:1px solid var(--border);border-left-width:4px;border-radius:10px;padding:14px 16px}
+  .pc h4{font-size:14px;display:flex;align-items:center;gap:8px;margin-bottom:5px}
+  .pc h4 i{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .pc p{font-size:12.5px;color:var(--slate);line-height:1.55}
+  .pc.win{border-left-color:var(--win)} .pc.win i{background:var(--win)} .pc.win h4{color:var(--win)}
+  .pc.rec{border-left-color:var(--rec)} .pc.rec i{background:var(--rec)} .pc.rec h4{color:var(--rec)}
+  .pc.cited{border-left-color:var(--cited)} .pc.cited i{background:var(--cited)} .pc.cited h4{color:var(--cited)}
+  .pc.invis{border-left-color:var(--invis)} .pc.invis i{background:var(--invis)} .pc.invis h4{color:var(--invis)}
+  @media(max-width:720px){.cards{grid-template-columns:1fr}h1{font-size:26px}}
+  @media print{body{background:#fff;padding:0}.card{box-shadow:none;max-width:none}.controls{display:none}}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="top">
+    <div class="brand"><span class="mark">&#9650;</span>RankPrompt</div>
+    <div class="kicker">The AI Visibility Matrix</div>
+  </div>
+
+  <div class="label">Where you stand today</div>
+  <h1>Your brand, plotted on the <span class="a">AI Visibility Matrix</span></h1>
+  <p class="sub">Every brand in your space sits somewhere on two axes: how often AI <b>recommends</b> you (Visibility Score) and how much of what AI <b>cites</b> comes from your own pages (Citation Share). Your square tells you the one play that moves you toward Winning.</p>
+
+  <div class="controls">
+    <label class="ctl"><span>Platform</span><select id="fPlatform"></select></label>
+    <label class="ctl"><span>Location</span><select id="fLocation"></select></label>
+    <div class="timewrap" id="timewrap">
+      <button class="playbtn" id="playBtn">▶ Play</button>
+      <input type="range" id="timeSlider" min="0" max="0" value="0" step="1">
+      <span class="tdate" id="timeDate"></span>
+    </div>
+  </div>
+
+  <div class="plot-wrap">
+    <div class="yaxis"><span>↑ Visibility Score</span></div>
+    <div class="plot" id="plot">
+      <div class="quad q-rec"></div><div class="quad q-win"></div>
+      <div class="quad q-invis"></div><div class="quad q-cited"></div>
+      <div class="divx"></div><div class="divy"></div>
+      <div class="qlab rec">Recommended, not sourced</div>
+      <div class="qlab win">Winning</div>
+      <div class="qlab invis">Invisible</div>
+      <div class="qlab cited">Cited, not chosen</div>
+      <div class="wm">AI</div>
+      <svg class="trail" id="trail"><defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#6b4eff"/></marker></defs></svg>
+      <!-- markers injected here -->
+    </div>
+    <div class="xaxis">← Low &nbsp;·&nbsp; Citation Share &nbsp;·&nbsp; High →</div>
+  </div>
+
+  <div class="cards">
+    <div class="pc win"><h4><i></i>Winning — the pick &amp; the source</h4><p>AI recommends you <b>and</b> cites your pages. <b>Play:</b> keep top pages fresh, defend against competitors, expand to nearby prompts.</p></div>
+    <div class="pc rec"><h4><i></i>Recommended, not sourced</h4><p>AI picks you, but quotes third parties. <b>Play:</b> publish owned content for those prompts, get crawlable + structured.</p></div>
+    <div class="pc cited"><h4><i></i>Cited, not chosen</h4><p>You're quoted, but not the pick. <b>Play:</b> sharpen positioning, earn reviews, get into "best of" comparisons.</p></div>
+    <div class="pc invis"><h4><i></i>Invisible</h4><p>Not recommended, not cited — a foundation gap. <b>Play:</b> build citable guides/FAQs, get into the listicles AI reads.</p></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   DATA — replace with real RankPrompt values (matrix-board skill).
+   Every number must come from MCP data; never invent points.
+   - thresholds: the Matrix cutoffs (Visibility 25%, Citation 5%).
+   - axisMax: top of each axis's HIGH range (for scaling the plot).
+   - points: default view (All platforms / All locations).
+       {id, label, you?, visibility (0-100 %), citation (0-100 % share)}
+   - byPlatform / byLocation: optional overrides, same point shape.
+   - timeline: optional snapshots for the movement trail (YOU + others):
+       [{date:"2026-05-01", points:[{id, visibility, citation}, ...]}, ...]
+   ============================================================ */
+const DATA = {
+  brand: "Your brand",
+  thresholds: { visibility: 25, citation: 5 },
+  axisMax:    { visibility: 100, citation: 20 },
+  platforms: ["All","ChatGPT","Perplexity","AI Overviews","Claude"],
+  locations: ["All"],
+  points: [
+    { id:"YOU", label:"Your brand", you:true, visibility:34, citation:3.4 },
+    { id:"A", label:"Market leader", visibility:74, citation:13 },
+    { id:"B", label:"Competitor",    visibility:16, citation:9 },
+    { id:"C", label:"Competitor",    visibility:52, citation:6.2 },
+    { id:"D", label:"Competitor",    visibility:40, citation:2.1 },
+    { id:"E", label:"Competitor",    visibility:9,  citation:1.4 }
+  ],
+  byPlatform: {
+    "ChatGPT":     [ {id:"YOU",label:"Your brand",you:true,visibility:41,citation:3.8},{id:"A",label:"Market leader",visibility:80,citation:15},{id:"C",label:"Competitor",visibility:58,citation:7} ],
+    "Perplexity":  [ {id:"YOU",label:"Your brand",you:true,visibility:28,citation:2.4},{id:"A",label:"Market leader",visibility:66,citation:11},{id:"B",label:"Competitor",visibility:22,citation:8} ]
+  },
+  byLocation: {},
+  timeline: [
+    { date:"2026-05-01", points:[ {id:"YOU",visibility:10,citation:1.0} ] },
+    { date:"2026-06-01", points:[ {id:"YOU",visibility:19,citation:2.0} ] },
+    { date:"2026-07-01", points:[ {id:"YOU",visibility:34,citation:3.4} ] }
+  ]
+};
+
+/* ---- scaling: piecewise so the threshold sits at plot center (like the mockup) ---- */
+function scale(v, threshold, max){
+  // returns 0..1 across the axis; threshold maps to 0.5
+  if (v <= threshold) return (v/threshold)*0.5;
+  const hi = Math.max(max, threshold+0.0001);
+  return 0.5 + Math.min((v-threshold)/(hi-threshold),1)*0.5;
+}
+const xOf = p => scale(p.citation, DATA.thresholds.citation, DATA.axisMax.citation)*100;
+const yOf = p => (1 - scale(p.visibility, DATA.thresholds.visibility, DATA.axisMax.visibility))*100; // invert: high visibility = top
+
+const plot = document.getElementById('plot');
+const trail = document.getElementById('trail');
+const fPlat = document.getElementById('fPlatform');
+const fLoc  = document.getElementById('fLocation');
+const timewrap = document.getElementById('timewrap');
+const slider = document.getElementById('timeSlider');
+const tdate = document.getElementById('timeDate');
+const playBtn = document.getElementById('playBtn');
+
+DATA.platforms.forEach(p=>fPlat.add(new Option(p,p)));
+DATA.locations.forEach(l=>fLoc.add(new Option(l,l)));
+
+function currentPoints(){
+  const pl = fPlat.value, lo = fLoc.value;
+  if (pl!=="All" && DATA.byPlatform[pl]) return DATA.byPlatform[pl];
+  if (lo!=="All" && DATA.byLocation[lo]) return DATA.byLocation[lo];
+  return DATA.points;
+}
+
+function clearMarkers(){ plot.querySelectorAll('.pt').forEach(n=>n.remove()); trail.querySelectorAll('polyline,line').forEach(n=>n.remove()); }
+
+function draw(points, arrowFrom){
+  clearMarkers();
+  points.forEach(p=>{
+    const el=document.createElement('div');
+    el.className='pt'+(p.you?' you':'');
+    el.style.left=xOf(p)+'%'; el.style.top=yOf(p)+'%';
+    el.innerHTML='<div class="dot">'+(p.you?'YOU':p.id)+'</div><div class="nm">'+p.label+'</div>';
+    plot.appendChild(el);
+  });
+  if(arrowFrom){ // dashed movement arrow from a previous YOU position to current
+    const you=points.find(p=>p.you); if(you){
+      const ns='http://www.w3.org/2000/svg';
+      const line=document.createElementNS(ns,'line');
+      line.setAttribute('x1',xOf(arrowFrom)+'%'); line.setAttribute('y1',yOf(arrowFrom)+'%');
+      line.setAttribute('x2',xOf(you)+'%'); line.setAttribute('y2',yOf(you)+'%');
+      line.setAttribute('stroke','#6b4eff'); line.setAttribute('stroke-width','2');
+      line.setAttribute('stroke-dasharray','6 5'); line.setAttribute('marker-end','url(#ah)');
+      trail.appendChild(line);
+    }
+  }
+}
+
+/* time mode */
+const hasTimeline = Array.isArray(DATA.timeline) && DATA.timeline.length>1;
+let playing=null;
+function youAt(i){
+  const snap=DATA.timeline[i]; const yp=snap.points.find(p=>p.id==="YOU");
+  // merge the YOU snapshot onto the current (filtered) competitor set
+  const base=currentPoints().filter(p=>!p.you);
+  return [{id:"YOU",label:"Your brand",you:true,visibility:yp.visibility,citation:yp.citation}, ...base];
+}
+function showSnapshot(i){
+  tdate.textContent=DATA.timeline[i].date;
+  const prev = i>0 ? DATA.timeline[i-1].points.find(p=>p.id==="YOU") : null;
+  draw(youAt(i), prev);
+}
+if(hasTimeline){
+  timewrap.classList.add('on');
+  slider.max=DATA.timeline.length-1; slider.value=DATA.timeline.length-1;
+  slider.addEventListener('input',()=>{ stop(); showSnapshot(+slider.value); });
+  playBtn.addEventListener('click',()=>{ playing?stop():play(); });
+}
+function play(){ playBtn.textContent='❚❚ Pause'; let i=+slider.value>=DATA.timeline.length-1?0:+slider.value;
+  showSnapshot(i); slider.value=i;
+  playing=setInterval(()=>{ i++; if(i>=DATA.timeline.length){stop();return;} slider.value=i; showSnapshot(i); },1100); }
+function stop(){ if(playing){clearInterval(playing);playing=null;} playBtn.textContent='▶ Play'; }
+
+fPlat.addEventListener('change',render);
+fLoc.addEventListener('change',render);
+function render(){
+  stop();
+  if(hasTimeline){ slider.value=DATA.timeline.length-1; showSnapshot(DATA.timeline.length-1); }
+  else draw(currentPoints());
+}
+render();
+</script>
+</body>
+</html>

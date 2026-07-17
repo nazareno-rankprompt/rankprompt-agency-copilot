@@ -1,0 +1,14 @@
+# secrets
+.env
+.rp.env
+
+# working memory / client data (each agency's own)
+profile.md
+out/
+clients/
+
+# generated deliverables
+*.pdf
+
+# os
+.DS_Store
