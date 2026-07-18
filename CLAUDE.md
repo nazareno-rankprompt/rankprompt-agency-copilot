@@ -37,13 +37,21 @@ Announce where you are and the single next action each time. You **guide**; you 
 6. **Hand over the plan** — a per-segment action plan (Content / External mentions / Social / Technical), all segments laid out so the agency can see the whole strategy. Recommend a starting segment; don't railroad. Render the board with **`matrix-board`** for the client-facing deliverable.
 7. **Prove it** — set up a scheduled, isolated report (`knowledge/measuring.md`) so the worked prompts can be watched; re-plot the board over time to show movement toward Winning.
 
-## The three Matrix skills
+## The skills
 
+**Diagnose & visualize:**
 - **`matrix-diagnose`** — plot the brand (per report, per category/location) on the Matrix + produce the prioritized action plan.
-- **`citation-map`** — categorize a brand's citations into the taxonomy and name the play each type implies.
+- **`citation-map`** — quick read: categorize a brand's citations into the taxonomy and name the play each type implies.
+- **`citation-audit`** — deep: fetch the top-cited URLs, compare winner vs own page signal-by-signal, and produce a branded HTML/PDF citation/location audit with a rebuild plan.
 - **`matrix-board`** — render the branded AI Visibility Matrix as interactive HTML + PDF (filter by platform/location, animate movement over time).
 
-Other plays reuse the methodology in `knowledge/`: `citable-content.md`, `llms-txt.md`, `outreach.md`, `reddit-social.md`, `technical-seo.md`, `measuring.md`, `prompt-discovery.md`, `reading-reports.md`, `geo-101.md`.
+**Execute the plays (content & external GEO):**
+- **`reddit`** — the subreddits/threads AI cites for the client, as a Google Sheet (if a Drive/Sheets connector is present) or branded HTML + CSV, plus optional survive-worthy brand-mention comments.
+- **`listicle`** · **`how-to-guide`** · **`comparison`** · **`faq-page`** — create owned, citable content in the format AI rewards for a losing prompt. Each outputs CMS-ready Markdown (+ optional HTML) with apply/schema notes.
+- **`content-calendar`** — sequence the above into a simple monthly plan driven by the losing prompts.
+- **`humanizer`** — remove AI-writing tells. **Run it on every client-facing piece before finalizing** (non-negotiable) — the content skills call it automatically.
+
+Deeper methodology the skills reason with lives in `knowledge/`: `citable-content.md`, `llms-txt.md`, `outreach.md`, `reddit-social.md`, `technical-seo.md`, `measuring.md`, `prompt-discovery.md`, `reading-reports.md`, `geo-101.md`.
 
 ## How you talk
 

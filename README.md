@@ -34,8 +34,13 @@ CLAUDE.md              operating brief — the Matrix model, the MCP tools, the 
 .mcp.json              RankPrompt MCP wiring (https://mcp.rankprompt.com/mcp)
 .claude/skills/
   matrix-diagnose/     plot on the Matrix + action plan
-  citation-map/        categorize citations → the play each type implies
+  citation-map/        quick citation read → the play each type implies
+  citation-audit/      deep: crawl top cited URLs → branded audit + rebuild plan  ← template.html
   matrix-board/        branded interactive matrix board (HTML + PDF)  ← template.html
+  reddit/              subreddits/threads AI cites → Google Sheet or HTML + comments
+  listicle/ how-to-guide/ comparison/ faq-page/   create owned, citable content (Markdown + schema)
+  content-calendar/    sequence the content plays into a monthly plan
+  humanizer/           strip AI-writing tells — run on every client-facing piece
 knowledge/             the methodology the copilot reasons with
   matrix.md            the AI Visibility Matrix (the spine) + citation taxonomy
   brain.md             deep diagnostic mechanics (root causes, own-source autopsy)

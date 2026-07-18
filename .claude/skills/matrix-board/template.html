@@ -26,11 +26,6 @@
   .ctl{display:flex;flex-direction:column;gap:4px}
   .ctl span{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--body)}
   select{font-family:inherit;font-size:13px;font-weight:600;color:var(--ink);padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:#fff;cursor:pointer;min-width:170px}
-  .timewrap{flex:1;min-width:240px;display:none}
-  .timewrap.on{display:flex;align-items:center;gap:12px}
-  .timewrap input[type=range]{flex:1;accent-color:var(--purple)}
-  .playbtn{border:none;background:var(--purple);color:#fff;font-weight:700;font-size:13px;padding:8px 14px;border-radius:10px;cursor:pointer;white-space:nowrap}
-  .tdate{font-size:12px;font-weight:700;color:var(--purple);min-width:60px;text-align:right}
   .plot-wrap{position:relative;margin-top:20px;padding-left:34px;padding-bottom:30px}
   .yaxis{position:absolute;left:0;top:0;bottom:30px;width:24px;display:flex;align-items:center;justify-content:center}
   .yaxis span{transform:rotate(-180deg);writing-mode:vertical-rl;color:var(--purple);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
@@ -73,11 +68,10 @@
   .pc.rec{border-left-color:var(--rec)} .pc.rec i{background:var(--rec)} .pc.rec h4{color:var(--rec)} .pc.rec .seg{background:var(--rec)}
   .pc.cited{border-left-color:var(--cited)} .pc.cited i{background:var(--cited)} .pc.cited h4{color:var(--cited)} .pc.cited .seg{background:var(--cited)}
   .pc.invis{border-left-color:var(--invis)} .pc.invis i{background:var(--invis)} .pc.invis h4{color:var(--invis)} .pc.invis .seg{background:var(--invis)}
-  /* tabs */
+  .snapcap{font-size:11px;font-weight:700;color:var(--body);background:var(--lightbg);border:1px solid var(--border);border-radius:20px;padding:6px 12px;align-self:center}
+  /* report history panel */
   .panel{margin-top:30px;border:1px solid var(--border);border-radius:16px;overflow:hidden}
-  .tabs{display:flex;flex-wrap:wrap;background:var(--lightbg);border-bottom:1px solid var(--border)}
-  .tab{flex:1;min-width:130px;text-align:center;padding:13px 10px;font-size:12.5px;font-weight:700;color:var(--body);cursor:pointer;border-bottom:2px solid transparent;user-select:none}
-  .tab.active{color:var(--purple);background:#fff;border-bottom-color:var(--purple)}
+  .panelhead{padding:14px 22px;background:var(--lightbg);border-bottom:1px solid var(--border);font-size:14px;font-weight:800;color:var(--purple)}
   .tabbody{padding:20px 22px}
   .hint{font-size:11.5px;color:var(--body);margin-bottom:14px}
   /* prompts */
@@ -174,17 +168,13 @@
 
   <div class="label">Where you stand today</div>
   <h1>Your brand, plotted on the <span class="a">AI Visibility Matrix</span></h1>
-  <p class="sub">Two axes decide where you sit: how often AI <b>recommends</b> you (Visibility Score, vertical) and how much of what AI <b>cites</b> is your own pages (Citation Share, horizontal). Filter by <b>Location</b> and <b>Category</b> to plot each segment on its own — a brand is routinely in different squares across its categories. Press <b>Play</b> to watch a market move week by week. Every number must come from real RankPrompt data &mdash; replace the <code>DATA</code> block below with your values (see the matrix-board skill).</p>
+  <p class="sub">Two axes decide where you sit: how often AI <b>recommends</b> you (Visibility Score, vertical) and how much of what AI <b>cites</b> is your own pages (Citation Share, horizontal). The matrix shows the <b>latest report</b>; filter by <b>Location</b> and <b>Category</b> to narrow which segments you see — a brand is routinely in different squares across its categories. How each market moved over time is in the <b>Trends</b> chart and <b>Report history</b> below. Every number must come from real RankPrompt data &mdash; replace the <code>DATA</code> block below with your values (see the matrix-board skill).</p>
 
   <div class="controls">
     <label class="ctl"><span>Location</span><select id="fLocation"></select></label>
     <label class="ctl"><span>Category</span><select id="fCategory"></select></label>
     <label class="toggle"><input type="checkbox" id="fShowComp" checked><span class="sw"></span>Show competitors</label>
-    <div class="timewrap" id="timewrap">
-      <button class="playbtn" id="playBtn">&#9654; Play</button>
-      <input type="range" id="timeSlider" min="0" max="0" value="0" step="1">
-      <span class="tdate" id="timeDate"></span>
-    </div>
+    <div class="snapcap">Snapshot &middot; latest report, 17 Jul 2026</div>
   </div>
 
   <div class="plot-wrap">
@@ -227,12 +217,7 @@
   </div>
 
   <div class="panel">
-    <div class="tabs">
-      <div class="tab active" data-tab="prompts">Prompts</div>
-      <div class="tab" data-tab="history">Report history</div>
-      <div class="tab" data-tab="competitors">Competitor leaderboard</div>
-      <div class="tab" data-tab="citations">Citation leaderboard</div>
-    </div>
+    <div class="panelhead">Report history</div>
     <div class="tabbody" id="tabbody"></div>
   </div>
 
@@ -360,8 +345,6 @@ function isSelf(x){ const s=(x.u||x.n||"").toLowerCase(); return s.indexOf("ampe
 /* ---------- element refs ---------- */
 const plot=document.getElementById('plot'), trail=document.getElementById('trail');
 const fLoc=document.getElementById('fLocation'), fCat=document.getElementById('fCategory');
-const timewrap=document.getElementById('timewrap'), slider=document.getElementById('timeSlider');
-const tdate=document.getElementById('timeDate'), playBtn=document.getElementById('playBtn');
 const storynote=document.getElementById('storynote'), tabbody=document.getElementById('tabbody'), foot=document.getElementById('foot');
 const fShowComp=document.getElementById('fShowComp');
 let showComp=true, trendMetric='citation', trendCompare='competitors';
@@ -378,8 +361,6 @@ function selCompetitors(){
   const lo=fLoc.value;
   return (lo!=="All" && DATA.competitorsByLocation[lo]) ? DATA.competitorsByLocation[lo] : [];
 }
-function timelineActive(){ return fLoc.value!=="All" && fCat.value==="All" && DATA.timelineByLocation[fLoc.value]; }
-function currentTimeline(){ return timelineActive() || []; }
 
 /* ---------- plot ---------- */
 function clearMarkers(){ plot.querySelectorAll('.pt').forEach(n=>n.remove()); trail.querySelectorAll('line').forEach(n=>n.remove()); if(typeof hideTip==='function') hideTip(); }
@@ -410,32 +391,8 @@ function segPoints(){
   const single=segs.length===1;
   return segs.map(s=>({you:true, badge: single?'YOU':segBadge(s), label: single?segLabel(s):segLabel(s), visibility:s.visibility, citation:s.citation}));
 }
-function addLine(a,b,o){
-  const ns='http://www.w3.org/2000/svg', line=document.createElementNS(ns,'line');
-  line.setAttribute('x1',xOf(a)+'%'); line.setAttribute('y1',yOf(a)+'%');
-  line.setAttribute('x2',xOf(b)+'%'); line.setAttribute('y2',yOf(b)+'%');
-  line.setAttribute('stroke','#6b4eff'); line.setAttribute('stroke-width',o.w||2); line.setAttribute('stroke-linecap','round');
-  if(o.marker) line.setAttribute('marker-end','url(#ah)');
-  if(o.opacity!=null) line.setAttribute('opacity',o.opacity);
-  trail.appendChild(line);
-}
+/* the matrix is always a static snapshot of the latest report; movement lives in the Trends chart + Report history */
 function drawStatic(){ clearMarkers(); if(showComp) placeMarkers(selCompetitors().map(c=>({id:c.id,label:c.name,visibility:c.visibility,citation:c.citation}))); placeMarkers(segPoints()); }
-function drawSnapshot(i){
-  clearMarkers();
-  const tl=currentTimeline();
-  if(showComp) placeMarkers(selCompetitors().map(c=>({id:c.id,label:c.name,visibility:c.visibility,citation:c.citation})));
-  for(let k=1;k<=i;k++){ const last=(k===i); addLine(tl[k-1],tl[k],{w:last?3:2,opacity:last?1:0.30,marker:last}); }
-  placeMarkers([{you:true,badge:'YOU',label:DATA.brand+" ("+shortLoc(fLoc.value)+")",visibility:tl[i].visibility,citation:tl[i].citation}]);
-  tdate.textContent=tl[i].date;
-}
-
-/* ---------- play ---------- */
-let playing=null;
-function stop(){ if(playing){clearInterval(playing);playing=null;} playBtn.textContent='▶ Play'; }
-function play(){ const tl=currentTimeline(); playBtn.textContent='❚❚ Pause'; let i=(+slider.value>=tl.length-1)?0:+slider.value; drawSnapshot(i); slider.value=i;
-  playing=setInterval(()=>{ i++; if(i>=tl.length){stop();return;} slider.value=i; drawSnapshot(i); },1100); }
-slider.addEventListener('input',()=>{ stop(); drawSnapshot(+slider.value); });
-playBtn.addEventListener('click',()=>{ playing?stop():play(); });
 
 /* ---------- story + play-card tags ---------- */
 const STORY={
@@ -455,38 +412,7 @@ function updateCards(){
   });
 }
 
-/* ---------- tabs ---------- */
-let activeTab='prompts';
-document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
-  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-  t.classList.add('active'); activeTab=t.dataset.tab; renderTab();
-}));
-function filtInfo(){ const lo=fLoc.value, ca=fCat.value; const parts=[]; if(lo!=="All")parts.push(shortLoc(lo)); if(ca!=="All")parts.push(shortCat(ca)); return parts.length?parts.join(" · "):"all locations & categories"; }
-
-function renderPrompts(){
-  const lo=fLoc.value, ca=fCat.value;
-  const rows=DATA.prompts.filter(p=>(lo==="All"||p.loc===lo)&&(ca==="All"||p.cat===ca));
-  let h='<div class="hint">Showing '+rows.length+' sample prompt'+(rows.length===1?'':'s')+' for '+filtInfo()+'. Click any prompt to see how each engine answered and what it cited.</div>';
-  if(!rows.length) return h+'<div class="hint">No sample prompts match this filter.</div>';
-  rows.forEach((p,idx)=>{
-    const oc = p.outcome==="win" ? '<span class="chip win">Featured</span>' : '<span class="chip gap">Absent</span>';
-    h+='<div class="prow"><div class="phead" onclick="togglePrompt('+idx+')">'
-      +'<div class="pmeta"><span class="chip loc">'+shortLoc(p.loc)+'</span><span class="chip cat">'+shortCat(p.cat)+'</span>'+oc+'</div>'
-      +'<div class="ptext">'+p.text+'</div><div class="pcaret" id="car'+idx+'">▸</div></div>'
-      +'<div class="pbody" id="pb'+idx+'">';
-    p.platforms.forEach(pl=>{
-      const chip = pl.appeared ? '<span class="badge2 yes">Appears</span>'+(pl.rank?'<span class="rank">#'+pl.rank+'</span>':'') : '<span class="badge2 no">Absent</span>';
-      h+='<div class="plat"><div class="ph"><span class="pn">'+pl.platform.replace('_',' ')+'</span>'+chip+'</div>';
-      if(pl.sources && pl.sources.length){ h+='<div class="srcs">'; pl.sources.forEach((s,i2)=>{ h+='<div class="src'+(isSelf(s)?' self':'')+'"><span class="i">'+(i2+1)+'.</span><a href="'+s.u+'" target="_blank" rel="noopener">'+s.n+'</a></div>'; }); h+='</div>'; }
-      else h+='<div class="hint" style="margin:0">No citable sources recorded for this engine.</div>';
-      h+='</div>';
-    });
-    h+='</div></div>';
-  });
-  return h;
-}
-function togglePrompt(i){ document.getElementById('pb'+i).classList.toggle('on'); const c=document.getElementById('car'+i); c.textContent=c.textContent==='▸'?'▾':'▸'; }
-
+/* ---------- report history (only panel) ---------- */
 function renderHistory(){
   const lo=fLoc.value;
   let rows=[];
@@ -503,49 +429,7 @@ function renderHistory(){
   h+='</tbody></table>';
   return h;
 }
-
-function leaderboard(items, valKey, fmt, meTest, maxVal){
-  const mx = maxVal || Math.max.apply(null, items.map(i=>i[valKey]));
-  let h='<div class="lb">';
-  items.forEach((it,i)=>{ const me=meTest(it); const w=Math.max(3, (it[valKey]/mx)*100);
-    h+='<div class="lbrow'+(me?' me':'')+'"><div class="rk">'+(i+1)+'</div>'
-      +'<div class="nm2">'+(it.link?'<a href="'+it.link+'" target="_blank" rel="noopener">'+it.name+'</a>':it.name)+'</div>'
-      +'<div class="bar"><span style="width:'+w+'%"></span></div>'
-      +'<div class="val">'+fmt(it[valKey])+'</div></div>';
-  });
-  return h+'</div>';
-}
-function renderCompetitors(){
-  const lo=fLoc.value;
-  const locs = lo==="All"?DATA.locations.filter(l=>l!=="All"):[lo];
-  let h='<div class="hint">Share of voice &mdash; who AI recommends most in each market (% of tracked prompts where the brand appears). Ampersand highlighted.</div>';
-  h+='<div class="lbcols'+(locs.length>1?' two':'')+'">';
-  locs.forEach(L=>{
-    const you={name:DATA.brand, visibility: DATA.segments.filter(s=>s.loc===L).reduce((a,s)=>a+s.visibility*s.prompts,0)/DATA.segments.filter(s=>s.loc===L).reduce((a,s)=>a+s.prompts,0), me:true};
-    const list=DATA.competitorsByLocation[L].map(c=>({name:c.name,visibility:c.visibility})).concat([you]).sort((a,b)=>b.visibility-a.visibility);
-    h+='<div><div class="lbcap">'+shortLoc(L)+'</div>'+leaderboard(list,'visibility',v=>v.toFixed(1)+'%',it=>it.me===true,100)+'</div>';
-  });
-  return h+'</div>';
-}
-function renderCitations(){
-  const lo=fLoc.value;
-  const locs = lo==="All"?DATA.locations.filter(l=>l!=="All"):[lo];
-  let h='<div class="hint">Most-cited domains &mdash; whose pages AI quotes when answering this market\'s prompts. Your own domain highlighted.</div>';
-  h+='<div class="lbcols'+(locs.length>1?' two':'')+'">';
-  locs.forEach(L=>{
-    const lb=DATA.citationLeaderboard[L];
-    const rows2=lb.rows.map(r=>({name:r.domain, count:r.count, link:'https://'+r.domain}));
-    h+='<div><div class="lbcap">'+shortLoc(L)+' &middot; '+lb.total+' citations</div>'
-      +leaderboard(rows2,'count',v=>v+' ('+(v/lb.total*100).toFixed(1)+'%)',it=>it.name.indexOf('amperstudios.com')>=0, rows2[0].count)+'</div>';
-  });
-  return h+'</div>';
-}
-function renderTab(){
-  if(activeTab==='prompts') tabbody.innerHTML=renderPrompts();
-  else if(activeTab==='history') tabbody.innerHTML=renderHistory();
-  else if(activeTab==='competitors') tabbody.innerHTML=renderCompetitors();
-  else tabbody.innerHTML=renderCitations();
-}
+function renderTab(){ tabbody.innerHTML=renderHistory(); }
 
 /* ---------- trends over time ---------- */
 const TREND_PAL=['#3B82F6','#22C55E','#E8A838','#0ea5e9'];
@@ -628,13 +512,9 @@ document.querySelectorAll('#segCompare button').forEach(b=>b.addEventListener('c
 
 /* ---------- master render ---------- */
 function render(){
-  stop();
   updateStory(); updateCards(); drawTrends();
-  if(timelineActive() && currentTimeline().length>1){
-    timewrap.classList.add('on');
-    const tl=currentTimeline(); slider.max=tl.length-1; slider.value=tl.length-1; drawSnapshot(tl.length-1);
-  } else { timewrap.classList.remove('on'); drawStatic(); }
-  renderTab();
+  drawStatic();          // matrix is always the latest-report snapshot
+  renderTab();           // report history
 }
 fLoc.addEventListener('change',render);
 fCat.addEventListener('change',render);

@@ -9,17 +9,15 @@ Generate the branded AI Visibility Matrix visual — the client-facing centerpie
 
 ## What it shows
 
-- The brand (**YOU**, purple marker) and its competitors plotted on Visibility Score (vertical) × Citation Share (horizontal), in the four squares (Winning green / Recommended-not-sourced blue / Cited-not-chosen amber / Invisible red).
-- **Filter by location AND by category** — re-plots live. With both set to *All*, every location×category **segment** is plotted at once (each as its own labelled purple marker) so the client sees the whole strategy on one board: a brand is routinely in different squares across its categories.
-- **Show / hide competitors** — a toggle that removes competitor markers from the plot for a clean brand-only view.
-- **Over-time mode** — when a single location is selected (categories = All), a slider/animation traces the brand's weekly path across the squares (the movement trail), proving direction toward Winning.
-- **Trends over time** — a line chart (like RankPrompt's own dashboard) directly under the plot, with two controls: **Metric** (Citation Share ↔ Visibility Score) and **Compare** (Competitors / By platform / By category). Competitors plots the brand vs its top cited-domain rivals; By platform splits the brand's Visibility across ChatGPT/Perplexity/AI Overviews (visibility-only — per-platform citation isn't tracked); By category splits the brand across its categories. Respects the Location filter (with Location=All it shows the brand's line per market) and, in Competitors mode, the Category filter (the brand line follows the selected category; competitor lines stay market-level and say so). A dashed threshold line marks the square cutoff.
-- The four play-cards beneath, each auto-tagged with the segments currently sitting in that square.
-- A tabbed panel under the plot with four views, all respecting the active location/category filter:
-  - **Prompts** — a drill-down: click a prompt to see, per engine (ChatGPT / Perplexity / AI Overviews), whether the brand appeared, at what rank, and the exact sources it cited (own pages highlighted).
-  - **Report history** — every scheduled report, newest first, with its Visibility, Citation, computed square, and a link straight to the live RankPrompt report.
-  - **Competitor leaderboard** — share of voice: who AI recommends most in each market.
-  - **Citation leaderboard** — the most-cited domains per market, with the brand's own domain highlighted.
+The board has one clear division of labour: the **matrix = where you are now**, the **Trends chart + Report history = how you got here**. Keeping "snapshot" and "over time" in separate places is deliberate — an earlier version let the matrix silently switch between a static plot, an animated trail, and a single point as filters changed, which was confusing. Don't reintroduce that.
+
+- **The matrix is always a snapshot of the latest report.** The brand (**YOU**, purple marker) and its competitors plotted on Visibility Score (vertical) × Citation Share (horizontal), in the four squares (Winning green / Recommended-not-sourced blue / Cited-not-chosen amber / Invisible red). A persistent "Snapshot · latest report" caption keeps that unambiguous.
+- **Filter by location AND by category** — filters only ever *narrow which markers show*, never change the kind of view. All/All plots every location×category **segment** at once (each its own labelled purple marker); pick a location to narrow to its categories (+ its competitors); pick a category too for a single segment. A brand is routinely in different squares across its categories — that's the point.
+- **Show / hide competitors** — a toggle for a clean brand-only plot.
+- **Hover any marker** — a tooltip shows that segment's exact Visibility %, Citation %, and its square.
+- **Trends over time** — a line chart (like RankPrompt's own dashboard) under the plot: **Metric** (Citation Share ↔ Visibility Score) × **Compare** (Competitors / By platform / By category). Competitors plots the brand vs its top cited-domain rivals; By platform splits Visibility across ChatGPT/Perplexity/AI Overviews (visibility-only — per-platform citation isn't tracked); By category splits the brand across its real categories. Respects the Location filter (Location=All shows the brand's line per market) and, in Competitors mode, the Category filter. Dashed threshold line marks the square cutoff. **This is the home for movement over time — the matrix does not animate.**
+- The four play-cards, each auto-tagged with the segments currently sitting in that square.
+- **Report history** (the only panel) — every scheduled report, newest first, showing the **report-level** Visibility Score and Citation Share (matching RankPrompt exactly — it does NOT split by category), the computed square, and a link to the live report. Earlier builds also had Prompts / Competitor-leaderboard / Citation-leaderboard tabs; those were removed to keep the deliverable focused.
 
 ## How to build it
 
