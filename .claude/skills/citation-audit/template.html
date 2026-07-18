@@ -73,8 +73,8 @@
 <body>
 
 <div class="cover"><div class="inner">
-  <div class="logos"><span class="rp"><span class="m">&#9650;</span>RankPrompt</span><span class="x">×</span><span class="cl" id="clientName">Client</span></div>
-  <div class="label" id="kicker">RankPrompt · Citation Audit</div>
+  <div class="logos"><span class="rp" id="brandMark"></span><span class="x">×</span><span class="cl" id="clientName">Client</span></div>
+  <div class="label" id="kicker">Citation Audit</div>
   <h1 id="title">Citation & Location Audit</h1>
   <p id="subtitle">Where AI cites the brand vs its competitors, why the winning pages win, and exactly what to rebuild.</p>
   <div class="meta" id="meta">— prompts × platforms × segments · generated —</div>
@@ -149,6 +149,10 @@
    URLs, counts, competitors, or page attributes; fetch/pull real data.
    See the citation-audit SKILL.md for how each field is produced.
    ============================================================ */
+/* ---- BRANDING (white-label): the deliverable skill fills this from branding.json; null = RankPrompt default ---- */
+const BRANDING = { agencyName: null, logo: null, accent: null, poweredBy: true };
+if(BRANDING.accent){document.documentElement.style.setProperty('--purple', BRANDING.accent);}
+(function(){var el=document.getElementById('brandMark');if(!el)return;var pb=BRANDING.poweredBy?'<span style="margin-left:10px;font-size:10px;font-weight:600;color:#94a3b8;letter-spacing:.3px;vertical-align:middle">Powered by RankPrompt</span>':'';if(BRANDING.logo){el.innerHTML='<img src="'+BRANDING.logo+'" alt="'+(BRANDING.agencyName||'')+'" style="height:26px;width:auto;vertical-align:middle;filter:brightness(0) invert(1)">'+pb;}else if(BRANDING.agencyName){el.innerHTML='<span style="font-weight:800;color:#fff">'+BRANDING.agencyName+'</span>'+pb;}else{el.innerHTML='<span class="m">&#9650;</span>RankPrompt';}})();
 const DATA = {
   client:"Client", domain:"clientdomain.com",
   title:"Silent Conference — City-by-City Citation Audit",

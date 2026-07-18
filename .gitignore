@@ -7,6 +7,11 @@ profile.md
 out/
 clients/
 
+# agency white-label branding (each agency's own)
+branding.json
+logos/agency-logo.png
+logos/agency-logo.svg
+
 # generated deliverables
 *.pdf
 

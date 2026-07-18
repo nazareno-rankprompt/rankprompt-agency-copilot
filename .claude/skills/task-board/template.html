@@ -42,13 +42,17 @@
 </head>
 <body>
 <div class="card">
-  <div class="top"><div class="brand"><span class="m">&#9650;</span>RankPrompt</div><div class="kicker">GEO Task Board</div></div>
+  <div class="top"><div class="brand" id="brandMark"></div><div class="kicker">GEO Task Board</div></div>
   <h1 id="title">Client — GEO Task Board</h1>
   <div class="sub" id="sub">Every action tied to a real citation gap. Work top-down by priority.</div>
   <div class="cols" id="cols"></div>
 </div>
 <script>
 /* DATA — replace with real tasks (see task-board SKILL.md). lane ∈ content|onpage|outreach|directories|reviews|reddit|social|competitive; status ∈ Todo|In progress|Blocked|Done; priority ∈ H|M|L */
+/* ---- BRANDING (white-label): the deliverable skill fills this from branding.json; null = RankPrompt default ---- */
+const BRANDING = { agencyName: null, logo: null, accent: null, poweredBy: true };
+if(BRANDING.accent){document.documentElement.style.setProperty('--purple', BRANDING.accent);}
+(function(){var el=document.getElementById('brandMark');if(!el)return;var pb=BRANDING.poweredBy?'<span style="margin-left:10px;font-size:10px;font-weight:600;color:#64748B;letter-spacing:.3px;vertical-align:middle">Powered by RankPrompt</span>':'';if(BRANDING.logo){el.innerHTML='<img src="'+BRANDING.logo+'" alt="'+(BRANDING.agencyName||'')+'" style="height:24px;width:auto;vertical-align:middle">'+pb;}else if(BRANDING.agencyName){el.innerHTML='<span style="font-weight:800">'+BRANDING.agencyName+'</span>'+pb;}else{el.innerHTML='<span class="m">&#9650;</span>RankPrompt';}})();
 const DATA = {
   client:"Client",
   tasks:[

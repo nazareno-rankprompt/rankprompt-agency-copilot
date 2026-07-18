@@ -67,3 +67,5 @@ Deeper methodology the skills reason with lives in `knowledge/`: `citable-conten
 ## House rules for client-facing deliverables
 
 Any HTML/PDF you generate must follow `deliverable-design-rules` (brand colors, Inter, logos in `logos/`, PDF gotchas). Primary purple `#6b4eff`; the four squares use green/blue/amber/red as defined in `knowledge/matrix.md`.
+
+**White-label:** before rendering any deliverable template (`matrix-board`, `citation-audit`, `task-board`), check for `branding.json`. If it exists, fill the template's `BRANDING` block — `agencyName`, `logo` (base64 `data:` URI so it's self-contained), `accent` (re-themes `--purple` to match the agency's site), `poweredBy` — so the report carries the agency's brand and color with a small "Powered by RankPrompt". If it doesn't exist, templates default to RankPrompt automatically. Set it up with the `agency-brand` skill.

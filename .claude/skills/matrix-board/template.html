@@ -173,7 +173,7 @@
 <body>
 <div class="card">
   <div class="top">
-    <div class="brand"><span class="mark">&#9650;</span>RankPrompt</div>
+    <div class="brand" id="brandMark"></div>
     <div class="kicker">The AI Visibility Matrix</div>
   </div>
 
@@ -241,6 +241,10 @@
 </div>
 
 <script>
+/* ---- BRANDING (white-label): the deliverable skill fills this from branding.json; null = RankPrompt default ---- */
+const BRANDING = { agencyName: null, logo: null, accent: null, poweredBy: true };
+if(BRANDING.accent){document.documentElement.style.setProperty('--purple', BRANDING.accent);}
+(function(){var el=document.getElementById('brandMark');if(!el)return;var pb=BRANDING.poweredBy?'<span style="margin-left:10px;font-size:10px;font-weight:600;color:#64748B;letter-spacing:.3px;vertical-align:middle">Powered by RankPrompt</span>':'';if(BRANDING.logo){el.innerHTML='<img src="'+BRANDING.logo+'" alt="'+(BRANDING.agencyName||'')+'" style="height:26px;width:auto;vertical-align:middle">'+pb;}else if(BRANDING.agencyName){el.innerHTML='<span style="font-weight:800">'+BRANDING.agencyName+'</span>'+pb;}else{el.innerHTML='<span class="mark">&#9650;</span>RankPrompt';}})();
 /* =====================================================================
    DATA — sample values so this renders standalone. Replace every value with
    real RankPrompt data. See the matrix-board SKILL.md for the full contract.
