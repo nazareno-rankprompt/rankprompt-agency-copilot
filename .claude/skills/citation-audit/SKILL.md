@@ -8,8 +8,8 @@ description: Deep citation analysis for a category or location — crawls the to
 The deep version of citation analysis. Where `citation-map` gives a quick read of the citation mix, `citation-audit` **fetches the actual top-cited URLs** — the winners and the brand's own pages — pulls them apart, and produces a client-ready audit with a specific rebuild plan per segment. It operationalizes the own-source autopsy + sitemap reconciliation in `knowledge/brain.md` §3.5 and the citation taxonomy in `knowledge/matrix.md`.
 
 **Gold-standard references** (read them to match depth + structure before building):
-- `rankprompt-service-clients/clients/quiet-events/rankprompt-data/city-conference-audit/report.html` — city audit; mechanism = page-quality/intent (city pages existed but were thin, duplicate, disco-framed → discounted).
-- `rankprompt-service-clients/clients/owings-auto/rankprompt-data/location-audit/report.html` — location audit; mechanism = footprint (on-page fine; too few third-party profiles cited Owings in the lagging market).
+- `examples/quiet-events-city-audit/` (`report.html` + PDF) — city audit; mechanism = page-quality/intent (city pages existed but were thin, duplicate, disco-framed → discounted).
+- `examples/owings-auto-location-audit/` (`report.html` + PDF) — location audit; mechanism = footprint (on-page fine; too few third-party profiles cited Owings in the lagging market).
 
 The point of the analysis is to land on **the mechanism** — the one real reason — and prove it with fetched evidence, not to list generic tips.
 

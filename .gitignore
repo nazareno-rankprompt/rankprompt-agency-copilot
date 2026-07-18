@@ -14,6 +14,8 @@ logos/agency-logo.svg
 
 # generated deliverables
 *.pdf
+# ...but keep the reference example audits (real client audits, shipped as gold-standard references)
+!examples/**
 
 # os
 .DS_Store
