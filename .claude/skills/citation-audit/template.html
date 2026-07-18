@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Citation Audit</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--purple:#6b4eff;--accent:#a855f7;--dk:#0B0F17;--ink:#0f172a;--slate:#475569;--body:#64748B;--border:#E2E8F0;--lightbg:#F8FAFC;
+    --own:#15803d;--ownbg:#f0fdf4;--comp:#64748B;--dir:#B45309;--soc:#7c3aed;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter,-apple-system,sans-serif;color:var(--ink);background:#fff;font-size:14px;line-height:1.6;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{max-width:920px;margin:0 auto;padding:0 28px 60px}
+  /* cover */
+  .cover{background:var(--dk);color:#fff;padding:48px 28px}
+  .cover .inner{max-width:920px;margin:0 auto}
+  .logos{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .logos .rp{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px;color:#fff}
+  .logos .rp .m{width:24px;height:24px;border-radius:6px;background:linear-gradient(135deg,#6b4eff,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:13px}
+  .logos .x{color:#475569;font-size:20px;font-weight:300}
+  .logos .cl{color:#cbd5e1;font-weight:700;font-size:15px}
+  .cover .label{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+  .cover h1{font-size:32px;font-weight:800;margin-bottom:12px;letter-spacing:-.02em;line-height:1.15}
+  .cover p{color:#cbd5e1;max-width:680px}.cover .meta{margin-top:18px;color:#94a3b8;font-size:12.5px}
+  /* kpis */
+  .kpis{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0}
+  .kpi{flex:1;min-width:150px;background:var(--lightbg);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+  .kpi .n{font-size:24px;font-weight:800;color:var(--purple)}.kpi .l{font-size:11.5px;color:var(--body);line-height:1.35;margin-top:2px}
+  /* sections */
+  section{margin:30px 0;padding-top:6px}
+  h2{font-size:21px;font-weight:800;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid var(--purple);display:inline-block}
+  h3{font-size:15px;font-weight:700;margin:16px 0 8px}h4{font-size:13px;font-weight:700;margin:10px 0 6px}
+  p{margin:8px 0 12px}.small{font-size:12px;color:var(--slate)}
+  .lead b{color:var(--ink)}
+  code{background:#f1f5f9;padding:1px 5px;border-radius:4px;font-size:12px}
+  /* tables */
+  table{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0 14px}
+  th{background:var(--lightbg);text-align:left;padding:8px 10px;border-bottom:2px solid var(--border);font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--slate)}
+  td{padding:7px 10px;border-bottom:1px solid #eef2f7;vertical-align:top}
+  .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .mono{font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:11px;color:#334155;word-break:break-all}
+  .merow{background:var(--ownbg)} .merow .mono{color:var(--own);font-weight:600}
+  /* chips */
+  .chip{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.3px;padding:2px 7px;border-radius:20px;white-space:nowrap}
+  .c-own{background:var(--ownbg);color:var(--own)} .c-comp{background:#eef1f6;color:var(--comp)}
+  .c-dir{background:#fff7ed;color:var(--dir)} .c-soc{background:#f3e8ff;color:var(--soc)}
+  .c-av{background:#eff6ff;color:#1d4ed8} .c-loc{background:#f8fafc;color:var(--slate)} .c-maps{background:#ecfeff;color:#0e7490}
+  /* bars */
+  .bars{margin:12px 0}
+  .bar{display:flex;align-items:center;gap:10px;margin:4px 0;font-size:12px}
+  .bar .lb{width:120px;text-align:right;color:var(--slate);flex-shrink:0}
+  .bar .tr{flex:1;background:#f1f5f9;border-radius:5px;overflow:hidden;height:18px}
+  .bar .fl{height:100%;background:var(--purple);border-radius:5px}
+  .bar .vv{width:52px;font-weight:700;color:var(--ink)}
+  .bar.hi .fl{background:var(--own)} .bar.mid .fl{background:#E8A838} .bar.lo .fl{background:#EF6461}
+  /* segment card */
+  .seg{border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:14px 0}
+  .seg .hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+  .seg .hd h3{margin:0} .seg .score{font-weight:800;padding:3px 10px;border-radius:20px;font-size:13px}
+  .mix{font-size:12px;color:var(--slate);margin-bottom:10px}
+  /* autopsy */
+  .cmp th:nth-child(2){color:var(--comp)} .cmp th:nth-child(3){color:var(--own)}
+  .win-col{background:#fafafa}
+  .mech{background:var(--lightbg);border:1px solid var(--border);border-left:4px solid var(--purple);border-radius:10px;padding:12px 15px;margin:12px 0;font-size:13px}
+  .mech b{color:var(--ink)}
+  /* blueprint */
+  .must li{margin:6px 0}
+  .footer{background:var(--dk);color:#94a3b8;text-align:center;padding:26px;font-size:12.5px;margin-top:40px}
+  .footer a{color:#cbd5e1;text-decoration:none}
+  @media print{@page{size:A4;margin:0}.wrap{padding:0 24px 30px}.pb{page-break-before:always}}
+</style>
+</head>
+<body>
+
+<div class="cover"><div class="inner">
+  <div class="logos"><span class="rp"><span class="m">&#9650;</span>RankPrompt</span><span class="x">×</span><span class="cl" id="clientName">Client</span></div>
+  <div class="label" id="kicker">RankPrompt · Citation Audit</div>
+  <h1 id="title">Citation & Location Audit</h1>
+  <p id="subtitle">Where AI cites the brand vs its competitors, why the winning pages win, and exactly what to rebuild.</p>
+  <div class="meta" id="meta">— prompts × platforms × segments · generated —</div>
+</div></div>
+
+<div class="wrap">
+  <div class="kpis" id="kpis"></div>
+
+  <section>
+    <h2>What we measured</h2>
+    <p class="lead" id="measured"></p>
+    <div id="promptTable"></div>
+  </section>
+
+  <section>
+    <h2>Visibility by segment — how often we're named</h2>
+    <p class="small">Visibility = share of a segment's answers that mention the brand at all (name-drop, not citation).</p>
+    <div class="bars" id="visBars"></div>
+  </section>
+
+  <section>
+    <h2>Citation share by segment — how often we're the source</h2>
+    <p class="small">Citation share = of all links AI actually cited, the fraction pointing to the brand's own domain. The harder, more important metric.</p>
+    <div class="bars" id="citBars"></div>
+  </section>
+
+  <section>
+    <h2>Where the brand sits in the field</h2>
+    <p class="small" id="fieldNote"></p>
+    <div class="bars" id="fieldBars"></div>
+  </section>
+
+  <section class="pb">
+    <h2>What gets cited — source & page type</h2>
+    <p class="lead" id="mixLead"></p>
+    <div class="two" style="display:flex;gap:22px;flex-wrap:wrap">
+      <div style="flex:1;min-width:280px"><h4>By page type</h4><div class="bars" id="pageTypeBars"></div></div>
+      <div style="flex:1;min-width:280px"><h4>By source type</h4><div class="bars" id="sourceTypeBars"></div></div>
+    </div>
+  </section>
+
+  <section class="pb">
+    <h2>Top cited URLs, per segment</h2>
+    <p class="small">Each segment's most-cited sources (click to open). The brand's own pages are highlighted green.</p>
+    <div id="segCards"></div>
+  </section>
+
+  <section class="pb">
+    <h2>The autopsy — why the winner wins</h2>
+    <p class="lead" id="autopsyLead"></p>
+    <div id="autopsy"></div>
+  </section>
+
+  <section class="pb">
+    <h2>What to do — the rebuild</h2>
+    <p class="lead" id="rebuildLead"></p>
+    <h3>Page blueprint</h3>
+    <div id="blueprint"></div>
+    <h3>Technical must-dos</h3>
+    <ol class="must" id="mustdos"></ol>
+    <h3>Rollout</h3>
+    <p id="rollout"></p>
+    <div class="mech" id="target"></div>
+  </section>
+</div>
+
+<div class="footer">RankPrompt AI Visibility Platform · <a href="https://rankprompt.com">rankprompt.com</a> · <span id="footClient">citation audit</span></div>
+
+<script>
+/* ============================================================
+   DATA — replace every value with real audit output. Never invent
+   URLs, counts, competitors, or page attributes; fetch/pull real data.
+   See the citation-audit SKILL.md for how each field is produced.
+   ============================================================ */
+const DATA = {
+  client:"Client", domain:"clientdomain.com",
+  title:"Silent Conference — City-by-City Citation Audit",
+  subtitle:"How often AI cites the brand vs competitors across markets — the citations, the winning pages, and what to rebuild.",
+  meta:"12 prompts × 8 platforms × 10 segments · generated 2026-07-18",
+  kpis:[
+    {n:"#5", l:"brand rank of 967 named"},
+    {n:"5.6%", l:"own-site citation share (vs competitors)"},
+    {n:"10/10", l:"segment pages exist — but underperform"},
+    {n:"2", l:"segments earning 0 citations"}
+  ],
+  measured:"We asked the same buyer-intent prompts about the category in each segment, across the AI platforms. Visibility = mention rate; citation share = own-domain share of cited links.",
+  // segments: {name, visibility (%), citation (%), note}
+  segments:[
+    {name:"New York, NY", visibility:54.2, citation:7.6},
+    {name:"San Diego, CA", visibility:40.6, citation:7.9},
+    {name:"Orlando, FL", visibility:34.4, citation:5.7},
+    {name:"Dallas, TX", visibility:21.9, citation:4.4},
+    {name:"Denver, CO", visibility:11.5, citation:3.3}
+  ],
+  field:[ {name:"Silent Events",m:617},{name:"Sound Off Experience",m:439},{name:"Silence Activations",m:363},{name:"Client",m:324,you:true},{name:"Silentsystem",m:188} ],
+  fieldNote:"How often each brand is named across all answers.",
+  mixLead:"Half of every cited URL is a location/city page — the format AI rewards here. Blogs and social barely register.",
+  pageType:[ {t:"Location / city page",v:51},{t:"Homepage",v:13.4},{t:"Listicle / roundup",v:9.4},{t:"Product / rental",v:5.3},{t:"Social",v:4.9},{t:"Directory listing",v:2.5},{t:"Google / Maps",v:2.1} ],
+  sourceType:[ {t:"Competitor site",v:42},{t:"Other / local",v:30},{t:"AV / event vendor",v:12},{t:"Brand-owned",v:8},{t:"Social",v:5},{t:"Directory",v:3} ],
+  // per-segment cards
+  segCards:[
+    { name:"New York, NY", score:54.2, mix:"Competitor site 43% · Other/local 27% · AV/vendor 12% · Own 8% · Social 4%",
+      urls:[
+        {u:"https://competitor-a.com/new-york", type:"comp", pt:"Location page", n:55},
+        {u:"https://clientdomain.com", type:"own", pt:"Homepage", n:53},
+        {u:"https://competitor-b.com/silent-disco/ny/new-york-city", type:"comp", pt:"Location page", n:29},
+        {u:"https://clientdomain.com/pages/new-york-silent-disco", type:"own", pt:"Location page", n:0}
+      ] }
+  ],
+  autopsyLead:"We matched the live sitemap: the brand already has pages for these segments. They exist — they just don't get cited. Here's the proof, page vs page.",
+  autopsy:[
+    { seg:"Las Vegas & New York (0 citations)",
+      winner:"competitor-a.com location page", ours:"clientdomain.com/pages/{city}-silent-disco",
+      rows:[
+        {signal:"Content", winner:"~1,756 words, unique local content", ours:"~988 words, near-duplicate template (cities byte-for-byte identical except the name)"},
+        {signal:"Intent framing", winner:"Conference-dense (conference 10, convention 11)", ours:"\"Disco\"-framed; conference keywords barely present"},
+        {signal:"Title", winner:"\"Silent Disco Headphone Rental {City}, {State}\"", ours:"\"{City} – Silent Disco\" (no rental / conference)"},
+        {signal:"Meta", winner:"Commercial rental intent", ours:"\"No events yet in your city\" — reads like nothing happens"},
+        {signal:"Schema", winner:"WebPage, Breadcrumb, Service, FAQ", ours:"Organization / Image only — no LocalBusiness / Service / FAQ"},
+        {signal:"In AI sitemap?", winner:"—", ours:"AI sitemap lists one file (checkout instructions) — not the city pages"}
+      ],
+      mechanism:"Because the pages are thin, near-duplicate and mis-framed, AI discounts them and falls back to the homepage — while the competitor's longer, intent-titled location page wins the citation. <b>It's a page-quality and intent problem, not a page-existence problem.</b>" }
+  ],
+  rebuildLead:"The pages are thin, near-duplicate templates pointed at one use case. The fix is to turn each into a genuine local hub covering every way the brand serves that market — one deep, unique page wins where a thin one wins nothing.",
+  blueprint:[
+    {s:"1. Local events & tickets", covers:"Upcoming/recurring events, ticket links, recent photos — made specific to the segment", q:"\"{category} {city}\", \"things to do in {city}\""},
+    {s:"2. Rentals / core service", covers:"Every rental use case + inventory available locally", q:"\"{service} rental {city}\""},
+    {s:"3. The losing intent", covers:"The exact use case being lost today (e.g. conferences), named venues", q:"the prompts the brand is losing now"},
+    {s:"4. Pricing & local proof", covers:"Rate card, guarantees, real local deployments & venues served", q:"\"{category} cost {city}\", \"best {category} {city}\""},
+    {s:"5. {city} FAQ", covers:"5–8 city-specific Q&As (venues, permits, delivery radius)", q:"long-tail + FAQ rich-results / AEO"}
+  ],
+  mustdos:[
+    "Make every section genuinely unique per segment — real venues, events, numbers. Kill byte-for-byte duplication. Aim past ~1,500 words of distinct content.",
+    "Tune the title + meta to the hub and the real intent, not one narrow keyword. Kill dead meta descriptions.",
+    "Add structured data per page: LocalBusiness + Service + Event + FAQPage (today: Organization/Image only).",
+    "Link & surface them: internal links from the homepage + service hubs, and add the pages to the AI sitemap / llms.txt.",
+    "Roll out by need: start with the zero-citation segments, then the weak cluster. Re-run this audit monthly (the reports already exist)."
+  ],
+  rollout:"Start with the two zero-citation segments, then the weak cluster. The reports already exist, so re-run monthly.",
+  target:"Track own-site citation share from <b>5.6% → 15–20%</b> as the pages rebuild."
+};
+
+/* ---------- render ---------- */
+const $ = id => document.getElementById(id);
+const pct = v => (Math.round(v*10)/10) + (String(v).includes('%')?'':'%');
+const chipClass = t => ({own:'c-own',comp:'c-comp',dir:'c-dir',soc:'c-soc',av:'c-av',loc:'c-loc',maps:'c-maps'}[t]||'c-loc');
+const chipLabel = t => ({own:DATA.client+' (own)',comp:'Competitor site',dir:'Directory',soc:'Social',av:'AV / vendor',loc:'Other / local',maps:'Google / Maps'}[t]||t);
+function sqColor(v,hi,mid){return v>=hi?'#22C55E':(v>=mid?'#E8A838':'#EF6461');}
+
+$('clientName').textContent = DATA.client;
+$('footClient').textContent = 'citation audit for '+DATA.client;
+$('title').textContent = DATA.title;
+$('subtitle').textContent = DATA.subtitle;
+$('meta').textContent = DATA.meta;
+$('measured').textContent = DATA.measured;
+$('mixLead').textContent = DATA.mixLead;
+$('fieldNote').textContent = DATA.fieldNote;
+$('autopsyLead').textContent = DATA.autopsyLead;
+$('rebuildLead').textContent = DATA.rebuildLead;
+$('rollout').textContent = DATA.rollout;
+$('target').innerHTML = DATA.target;
+
+$('kpis').innerHTML = DATA.kpis.map(k=>`<div class="kpi"><div class="n">${k.n}</div><div class="l">${k.l}</div></div>`).join('');
+
+function bars(el,rows,max,cls){
+  const m = max || Math.max(...rows.map(r=>r.v));
+  $(el).innerHTML = rows.map(r=>{
+    const c = cls? cls(r.v):'';
+    return `<div class="bar ${c}"><div class="lb">${r.lb}</div><div class="tr"><div class="fl" style="width:${Math.max(2,r.v/m*100)}%"></div></div><div class="vv">${r.disp||pct(r.v)}</div></div>`;
+  }).join('');
+}
+bars('visBars', DATA.segments.map(s=>({lb:s.name,v:s.visibility})), 100, v=>v>=40?'hi':(v>=25?'mid':'lo'));
+bars('citBars', DATA.segments.map(s=>({lb:s.name,v:s.citation})), Math.max(...DATA.segments.map(s=>s.citation)), v=>v>=5?'hi':(v>=4?'mid':'lo'));
+bars('fieldBars', DATA.field.map(f=>({lb:f.name+(f.you?' ★':''),v:f.m,disp:f.m})), Math.max(...DATA.field.map(f=>f.m)), null);
+bars('pageTypeBars', DATA.pageType.map(p=>({lb:p.t,v:p.v})));
+bars('sourceTypeBars', DATA.sourceType.map(p=>({lb:p.t,v:p.v})));
+
+$('segCards').innerHTML = DATA.segCards.map(c=>{
+  const rows = c.urls.map(u=>`<tr class="${u.type==='own'?'merow':''}"><td><a class="mono" href="${u.u}">${u.u}</a></td><td><span class="chip ${chipClass(u.type)}">${chipLabel(u.type)}</span></td><td class="small">${u.pt}</td><td class="num">${u.n}</td></tr>`).join('');
+  return `<div class="seg"><div class="hd"><h3>${c.name}</h3><span class="score" style="background:${sqColor(c.score,40,25)}22;color:${sqColor(c.score,40,25)}">${pct(c.score)}</span></div>
+    <div class="mix">${c.mix}</div>
+    <table><thead><tr><th>URL — click to open</th><th>Source</th><th>Page type</th><th class="num">×</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}).join('');
+
+$('autopsy').innerHTML = DATA.autopsy.map(a=>{
+  const rows = a.rows.map(r=>`<tr><td><b>${r.signal}</b></td><td class="win-col">${r.winner}</td><td>${r.ours}</td></tr>`).join('');
+  return `<h3>${a.seg}</h3>
+    <table class="cmp"><thead><tr><th>Signal</th><th>Winner — ${a.winner}</th><th>Ours — ${a.ours}</th></tr></thead><tbody>${rows}</tbody></table>
+    <div class="mech">The mechanism: ${a.mechanism}</div>`;
+}).join('');
+
+$('blueprint').innerHTML = `<table><thead><tr><th>Section</th><th>What it covers (made specific to the segment)</th><th>Queries it captures</th></tr></thead><tbody>${
+  DATA.blueprint.map(b=>`<tr><td><b>${b.s}</b></td><td>${b.covers}</td><td class="small">${b.q}</td></tr>`).join('')
+}</tbody></table>`;
+$('mustdos').innerHTML = DATA.mustdos.map(m=>`<li>${m}</li>`).join('');
+</script>
+</body>
+</html>

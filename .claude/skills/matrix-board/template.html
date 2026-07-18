@@ -13,40 +13,36 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:Inter,system-ui,sans-serif;background:#eef0f4;color:var(--ink);padding:32px 16px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .card{max-width:1040px;margin:0 auto;background:#fff;border-radius:24px;padding:40px 44px 44px;box-shadow:0 10px 40px rgba(15,23,42,.06)}
-  /* header */
+  .card{max-width:1060px;margin:0 auto;background:#fff;border-radius:24px;padding:40px 44px 44px;box-shadow:0 10px 40px rgba(15,23,42,.06)}
   .top{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:18px}
   .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:19px}
   .brand .mark{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#6b4eff,#8b5cf6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px}
   .kicker{color:var(--purple);font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase}
-  /* intro */
   .label{color:var(--purple);font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin:26px 0 8px}
   h1{font-size:34px;font-weight:800;line-height:1.15;letter-spacing:-.5px}
   h1 .a{color:var(--accent)}
-  .sub{color:var(--slate);font-size:14px;line-height:1.6;margin-top:12px;max-width:760px}
-  /* controls */
-  .controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:24px 0 6px}
+  .sub{color:var(--slate);font-size:14px;line-height:1.6;margin-top:12px;max-width:800px}
+  .controls{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin:24px 0 6px}
   .ctl{display:flex;flex-direction:column;gap:4px}
   .ctl span{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--body)}
-  select{font-family:inherit;font-size:13px;font-weight:600;color:var(--ink);padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:#fff;cursor:pointer;min-width:150px}
+  select{font-family:inherit;font-size:13px;font-weight:600;color:var(--ink);padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:#fff;cursor:pointer;min-width:170px}
   .timewrap{flex:1;min-width:240px;display:none}
   .timewrap.on{display:flex;align-items:center;gap:12px}
   .timewrap input[type=range]{flex:1;accent-color:var(--purple)}
-  .playbtn{border:none;background:var(--purple);color:#fff;font-weight:700;font-size:13px;padding:8px 14px;border-radius:10px;cursor:pointer}
-  .tdate{font-size:12px;font-weight:700;color:var(--purple);min-width:96px;text-align:right}
-  /* plot */
+  .playbtn{border:none;background:var(--purple);color:#fff;font-weight:700;font-size:13px;padding:8px 14px;border-radius:10px;cursor:pointer;white-space:nowrap}
+  .tdate{font-size:12px;font-weight:700;color:var(--purple);min-width:60px;text-align:right}
   .plot-wrap{position:relative;margin-top:20px;padding-left:34px;padding-bottom:30px}
   .yaxis{position:absolute;left:0;top:0;bottom:30px;width:24px;display:flex;align-items:center;justify-content:center}
   .yaxis span{transform:rotate(-180deg);writing-mode:vertical-rl;color:var(--purple);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
   .xaxis{position:absolute;left:34px;right:0;bottom:0;text-align:center;color:var(--purple);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
-  .plot{position:relative;width:100%;aspect-ratio:1.28/1;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+  .plot{position:relative;width:100%;aspect-ratio:1.32/1;border:1px solid var(--border);border-radius:8px;overflow:hidden}
   .quad{position:absolute;width:50%;height:50%}
   .q-rec{top:0;left:0;background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(59,130,246,.02))}
   .q-win{top:0;right:0;background:linear-gradient(225deg,rgba(34,197,94,.10),rgba(34,197,94,.02))}
   .q-invis{bottom:0;left:0;background:linear-gradient(45deg,rgba(239,100,97,.10),rgba(239,100,97,.02))}
   .q-cited{bottom:0;right:0;background:linear-gradient(315deg,rgba(232,168,56,.12),rgba(232,168,56,.03))}
-  .divx{position:absolute;top:0;bottom:0;left:50%;border-left:1px solid var(--border)}
-  .divy{position:absolute;left:0;right:0;top:50%;border-top:1px solid var(--border)}
+  .divx{position:absolute;top:0;bottom:0;left:50%;border-left:1px dashed var(--border)}
+  .divy{position:absolute;left:0;right:0;top:50%;border-top:1px dashed var(--border)}
   .qlab{position:absolute;font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:5px 9px;border-radius:6px;background:rgba(255,255,255,.7)}
   .qlab.rec{top:14px;left:14px;color:var(--rec)}
   .qlab.win{top:14px;right:14px;color:var(--win)}
@@ -54,24 +50,119 @@
   .qlab.cited{bottom:14px;right:14px;color:var(--cited)}
   .wm{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:120px;font-weight:900;color:rgba(107,78,255,.05);letter-spacing:-4px;user-select:none}
   svg.trail{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-  /* markers */
-  .pt{position:absolute;transform:translate(-50%,-50%);text-align:center;transition:left .5s ease,top .5s ease}
-  .dot{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;background:#eef1f6;color:var(--slate);border:1px solid #e2e6ee;box-shadow:0 2px 6px rgba(15,23,42,.08);margin:0 auto}
-  .pt.you .dot{width:58px;height:58px;border-radius:15px;background:var(--purple);color:#fff;font-size:15px;box-shadow:0 6px 18px rgba(107,78,255,.4);border:3px solid rgba(107,78,255,.25)}
-  .pt .nm{font-size:11px;font-weight:600;color:var(--slate);margin-top:5px;white-space:nowrap}
+  .pt{position:absolute;transform:translate(-50%,-50%);text-align:center;transition:left .6s ease,top .6s ease}
+  .dot{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;background:#eef1f6;color:var(--slate);border:1px solid #e2e6ee;box-shadow:0 2px 6px rgba(15,23,42,.08);margin:0 auto}
+  .pt.you .dot{width:52px;height:52px;border-radius:14px;background:var(--purple);color:#fff;font-size:13px;box-shadow:0 6px 18px rgba(107,78,255,.4);border:3px solid rgba(107,78,255,.25)}
+  .pt .nm{font-size:10.5px;font-weight:600;color:var(--slate);margin-top:5px;white-space:nowrap}
   .pt.you .nm{color:var(--purple);font-weight:700}
-  /* legend cards */
-  .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:30px}
-  .pc{border:1px solid var(--border);border-left-width:4px;border-radius:10px;padding:14px 16px}
+  .pt{cursor:default}
+  .mtip{position:absolute;transform:translate(-50%,-142%);background:#0f172a;color:#fff;font-size:11.5px;font-weight:600;line-height:1.5;padding:8px 11px;border-radius:9px;pointer-events:none;white-space:nowrap;opacity:0;transition:opacity .12s;z-index:30;box-shadow:0 8px 20px rgba(15,23,42,.28)}
+  .mtip.on{opacity:1}
+  .mtip .mv{color:#c4b5fd;font-weight:800}
+  .mtip .msq{display:block;margin-top:2px;font-size:10px;font-weight:800;letter-spacing:.4px;text-transform:uppercase}
+  .note{margin-top:24px;font-size:13px;color:var(--slate);line-height:1.6;background:var(--lightbg);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+  .note b{color:var(--ink)}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+  .pc{border:1px solid var(--border);border-left-width:4px;border-radius:10px;padding:14px 16px;position:relative}
   .pc h4{font-size:14px;display:flex;align-items:center;gap:8px;margin-bottom:5px}
   .pc h4 i{width:9px;height:9px;border-radius:50%;display:inline-block}
   .pc p{font-size:12.5px;color:var(--slate);line-height:1.55}
-  .pc.win{border-left-color:var(--win)} .pc.win i{background:var(--win)} .pc.win h4{color:var(--win)}
-  .pc.rec{border-left-color:var(--rec)} .pc.rec i{background:var(--rec)} .pc.rec h4{color:var(--rec)}
-  .pc.cited{border-left-color:var(--cited)} .pc.cited i{background:var(--cited)} .pc.cited h4{color:var(--cited)}
-  .pc.invis{border-left-color:var(--invis)} .pc.invis i{background:var(--invis)} .pc.invis h4{color:var(--invis)}
-  @media(max-width:720px){.cards{grid-template-columns:1fr}h1{font-size:26px}}
-  @media print{body{background:#fff;padding:0}.card{box-shadow:none;max-width:none}.controls{display:none}}
+  .pc .segs{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+  .pc .seg{font-size:10px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:#fff;padding:2px 7px;border-radius:20px}
+  .pc.win{border-left-color:var(--win)} .pc.win i{background:var(--win)} .pc.win h4{color:var(--win)} .pc.win .seg{background:var(--win)}
+  .pc.rec{border-left-color:var(--rec)} .pc.rec i{background:var(--rec)} .pc.rec h4{color:var(--rec)} .pc.rec .seg{background:var(--rec)}
+  .pc.cited{border-left-color:var(--cited)} .pc.cited i{background:var(--cited)} .pc.cited h4{color:var(--cited)} .pc.cited .seg{background:var(--cited)}
+  .pc.invis{border-left-color:var(--invis)} .pc.invis i{background:var(--invis)} .pc.invis h4{color:var(--invis)} .pc.invis .seg{background:var(--invis)}
+  /* tabs */
+  .panel{margin-top:30px;border:1px solid var(--border);border-radius:16px;overflow:hidden}
+  .tabs{display:flex;flex-wrap:wrap;background:var(--lightbg);border-bottom:1px solid var(--border)}
+  .tab{flex:1;min-width:130px;text-align:center;padding:13px 10px;font-size:12.5px;font-weight:700;color:var(--body);cursor:pointer;border-bottom:2px solid transparent;user-select:none}
+  .tab.active{color:var(--purple);background:#fff;border-bottom-color:var(--purple)}
+  .tabbody{padding:20px 22px}
+  .hint{font-size:11.5px;color:var(--body);margin-bottom:14px}
+  /* prompts */
+  .prow{border:1px solid var(--border);border-radius:11px;margin-bottom:10px;overflow:hidden}
+  .phead{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;background:#fff}
+  .phead:hover{background:var(--lightbg)}
+  .pmeta{display:flex;gap:6px;flex-shrink:0}
+  .chip{font-size:10px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;padding:2px 7px;border-radius:20px}
+  .chip.loc{background:rgba(107,78,255,.1);color:var(--purple)}
+  .chip.cat{background:#eef1f6;color:var(--slate)}
+  .chip.win{background:rgba(34,197,94,.14);color:#15803d}
+  .chip.gap{background:rgba(239,100,97,.14);color:#b91c1c}
+  .ptext{font-size:13px;font-weight:600;flex:1}
+  .pcaret{color:var(--body);font-size:12px;flex-shrink:0}
+  .pbody{display:none;padding:4px 14px 14px;background:#fff}
+  .pbody.on{display:block}
+  .plat{border-top:1px solid var(--border);padding:11px 0 3px}
+  .plat:first-child{border-top:none}
+  .plat .ph{display:flex;align-items:center;gap:9px;margin-bottom:6px}
+  .plat .pn{font-size:12px;font-weight:800;color:var(--ink);text-transform:capitalize}
+  .badge2{font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px}
+  .badge2.yes{background:rgba(34,197,94,.14);color:#15803d}
+  .badge2.no{background:rgba(239,100,97,.14);color:#b91c1c}
+  .rank{font-size:10.5px;font-weight:700;color:var(--purple);background:rgba(107,78,255,.1);padding:2px 8px;border-radius:20px}
+  .srcs{display:flex;flex-direction:column;gap:3px;padding-left:2px}
+  .src{font-size:12px;color:var(--slate);display:flex;gap:7px;align-items:baseline}
+  .src .i{color:var(--body);font-weight:700;min-width:14px}
+  .src a{color:var(--rec);text-decoration:none;word-break:break-all}
+  .src a:hover{text-decoration:underline}
+  .src.self a{color:var(--purple);font-weight:700}
+  .src.self::after{content:"YOUR PAGE";font-size:9px;font-weight:800;color:var(--purple);background:rgba(107,78,255,.1);padding:1px 6px;border-radius:20px;align-self:center}
+  /* tables + leaderboards */
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th{text-align:left;font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--body);padding:7px 8px;border-bottom:1px solid var(--border)}
+  td{padding:9px 8px;border-bottom:1px solid var(--border);color:var(--slate)}
+  tr:last-child td{border-bottom:none}
+  .sq{font-size:10px;font-weight:800;text-transform:uppercase;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .sq.win{background:rgba(34,197,94,.14);color:#15803d}
+  .sq.rec{background:rgba(59,130,246,.14);color:#1d4ed8}
+  .sq.cited{background:rgba(232,168,56,.16);color:#b45309}
+  .sq.invis{background:rgba(239,100,97,.14);color:#b91c1c}
+  td a.rl{color:var(--rec);text-decoration:none;font-weight:600}
+  td a.rl:hover{text-decoration:underline}
+  .lb{display:flex;flex-direction:column;gap:7px}
+  .lbrow{display:grid;grid-template-columns:20px 1fr 128px 52px;align-items:center;gap:10px}
+  .lbrow .rk{font-size:11px;font-weight:800;color:var(--body);text-align:right}
+  .lbrow .nm2{font-size:12.5px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .lbrow .nm2 a{color:inherit;text-decoration:none}
+  .lbrow .nm2 a:hover{text-decoration:underline;color:var(--rec)}
+  .lbrow.me .nm2{color:var(--purple);font-weight:800}
+  .bar{height:9px;border-radius:6px;background:#eef1f6;overflow:hidden}
+  .bar>span{display:block;height:100%;border-radius:6px;background:var(--slate)}
+  .lbrow.me .bar>span{background:var(--purple)}
+  .val{font-size:11.5px;font-weight:700;color:var(--slate);text-align:right}
+  .lbrow.me .val{color:var(--purple)}
+  .lbcols{display:grid;grid-template-columns:1fr;gap:24px}
+  .lbcols.two{grid-template-columns:1fr 1fr}
+  .lbcap{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--purple);margin-bottom:10px}
+  /* show-competitors toggle */
+  .toggle{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--slate);cursor:pointer;user-select:none}
+  .toggle input{display:none}
+  .toggle .sw{width:34px;height:20px;border-radius:20px;background:#cbd5e1;position:relative;transition:background .2s;flex-shrink:0}
+  .toggle .sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left .2s}
+  .toggle input:checked + .sw{background:var(--purple)}
+  .toggle input:checked + .sw::after{left:16px}
+  /* trends section */
+  .trends{margin-top:30px;border:1px solid var(--border);border-radius:16px;padding:20px 22px}
+  .trends .th{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+  .trends .tt{font-size:16px;font-weight:800}
+  .trends .tc{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+  .segc{display:inline-flex;background:var(--lightbg);border:1px solid var(--border);border-radius:9px;overflow:hidden;vertical-align:middle}
+  .segc button{border:none;background:transparent;font-family:inherit;font-size:11.5px;font-weight:700;color:var(--body);padding:6px 11px;cursor:pointer}
+  .segc button.on{background:var(--purple);color:#fff}
+  .segc button:disabled{opacity:.35;cursor:not-allowed}
+  .seglabel{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--body);margin-right:6px}
+  .chartwrap{margin-top:14px}
+  .chartwrap svg{width:100%;height:auto;display:block}
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;justify-content:center}
+  .lg{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--border);border-radius:20px;padding:5px 11px;font-size:12px;font-weight:600;color:var(--ink)}
+  .lg .d{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  .lg .yb{font-size:9px;font-weight:800;color:var(--purple);background:rgba(107,78,255,.12);padding:1px 6px;border-radius:20px}
+  .tnote{font-size:11.5px;color:var(--body);margin-top:10px;line-height:1.5}
+  .foot{margin-top:22px;font-size:11px;color:var(--body);line-height:1.5;border-top:1px solid var(--border);padding-top:14px}
+  @media(max-width:760px){.cards,.lbcols.two{grid-template-columns:1fr}h1{font-size:26px}.lbrow{grid-template-columns:18px 1fr 90px 46px}.trends .th{align-items:flex-start;flex-direction:column}}
+  @media print{body{background:#fff;padding:0}.card{box-shadow:none;max-width:none}.controls,.tabs{display:none}.pbody{display:block!important}}
 </style>
 </head>
 <body>
@@ -83,20 +174,21 @@
 
   <div class="label">Where you stand today</div>
   <h1>Your brand, plotted on the <span class="a">AI Visibility Matrix</span></h1>
-  <p class="sub">Every brand in your space sits somewhere on two axes: how often AI <b>recommends</b> you (Visibility Score) and how much of what AI <b>cites</b> comes from your own pages (Citation Share). Your square tells you the one play that moves you toward Winning.</p>
+  <p class="sub">Two axes decide where you sit: how often AI <b>recommends</b> you (Visibility Score, vertical) and how much of what AI <b>cites</b> is your own pages (Citation Share, horizontal). Filter by <b>Location</b> and <b>Category</b> to plot each segment on its own — a brand is routinely in different squares across its categories. Press <b>Play</b> to watch a market move week by week. Every number must come from real RankPrompt data &mdash; replace the <code>DATA</code> block below with your values (see the matrix-board skill).</p>
 
   <div class="controls">
-    <label class="ctl"><span>Platform</span><select id="fPlatform"></select></label>
     <label class="ctl"><span>Location</span><select id="fLocation"></select></label>
+    <label class="ctl"><span>Category</span><select id="fCategory"></select></label>
+    <label class="toggle"><input type="checkbox" id="fShowComp" checked><span class="sw"></span>Show competitors</label>
     <div class="timewrap" id="timewrap">
-      <button class="playbtn" id="playBtn">▶ Play</button>
+      <button class="playbtn" id="playBtn">&#9654; Play</button>
       <input type="range" id="timeSlider" min="0" max="0" value="0" step="1">
       <span class="tdate" id="timeDate"></span>
     </div>
   </div>
 
   <div class="plot-wrap">
-    <div class="yaxis"><span>↑ Visibility Score</span></div>
+    <div class="yaxis"><span>&uarr; Visibility Score</span></div>
     <div class="plot" id="plot">
       <div class="quad q-rec"></div><div class="quad q-win"></div>
       <div class="quad q-invis"></div><div class="quad q-cited"></div>
@@ -107,142 +199,451 @@
       <div class="qlab cited">Cited, not chosen</div>
       <div class="wm">AI</div>
       <svg class="trail" id="trail"><defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#6b4eff"/></marker></defs></svg>
-      <!-- markers injected here -->
+      <div class="mtip" id="mtip"></div>
     </div>
-    <div class="xaxis">← Low &nbsp;·&nbsp; Citation Share &nbsp;·&nbsp; High →</div>
+    <div class="xaxis">&larr; Low &nbsp;&middot;&nbsp; Citation Share &nbsp;&middot;&nbsp; High &rarr;</div>
+  </div>
+
+  <div class="note" id="storynote"></div>
+
+  <div class="trends">
+    <div class="th">
+      <div class="tt">Trends over time</div>
+      <div class="tc">
+        <div><span class="seglabel">Metric</span><span class="segc" id="segMetric"><button data-m="citation" class="on">Citation Share</button><button data-m="visibility">Visibility</button></span></div>
+        <div><span class="seglabel">Compare</span><span class="segc" id="segCompare"><button data-c="competitors" class="on">Competitors</button><button data-c="platform">By platform</button><button data-c="category">By category</button></span></div>
+      </div>
+    </div>
+    <div class="chartwrap" id="trendchart"></div>
+    <div class="legend" id="trendlegend"></div>
+    <div class="tnote" id="trendnote"></div>
   </div>
 
   <div class="cards">
-    <div class="pc win"><h4><i></i>Winning — the pick &amp; the source</h4><p>AI recommends you <b>and</b> cites your pages. <b>Play:</b> keep top pages fresh, defend against competitors, expand to nearby prompts.</p></div>
-    <div class="pc rec"><h4><i></i>Recommended, not sourced</h4><p>AI picks you, but quotes third parties. <b>Play:</b> publish owned content for those prompts, get crawlable + structured.</p></div>
-    <div class="pc cited"><h4><i></i>Cited, not chosen</h4><p>You're quoted, but not the pick. <b>Play:</b> sharpen positioning, earn reviews, get into "best of" comparisons.</p></div>
-    <div class="pc invis"><h4><i></i>Invisible</h4><p>Not recommended, not cited — a foundation gap. <b>Play:</b> build citable guides/FAQs, get into the listicles AI reads.</p></div>
+    <div class="pc win"><h4><i></i>Winning &mdash; the pick &amp; the source</h4><p>AI recommends you <b>and</b> cites your pages. <b>Play:</b> keep top pages fresh, defend, expand to nearby prompts.</p><div class="segs" data-sq="win"></div></div>
+    <div class="pc rec"><h4><i></i>Recommended, not sourced</h4><p>AI picks you, but quotes third parties. <b>Play:</b> publish owned content; get crawlable + structured so AI cites <b>your</b> pages.</p><div class="segs" data-sq="rec"></div></div>
+    <div class="pc cited"><h4><i></i>Cited, not chosen</h4><p>You're quoted, but not the pick. <b>Play:</b> sharpen positioning, earn reviews, win the "best of" comparisons.</p><div class="segs" data-sq="cited"></div></div>
+    <div class="pc invis"><h4><i></i>Invisible</h4><p>Not recommended, not cited &mdash; a foundation gap. <b>Play:</b> build citable guides/FAQs; get into the listicles AI reads.</p><div class="segs" data-sq="invis"></div></div>
   </div>
+
+  <div class="panel">
+    <div class="tabs">
+      <div class="tab active" data-tab="prompts">Prompts</div>
+      <div class="tab" data-tab="history">Report history</div>
+      <div class="tab" data-tab="competitors">Competitor leaderboard</div>
+      <div class="tab" data-tab="citations">Citation leaderboard</div>
+    </div>
+    <div class="tabbody" id="tabbody"></div>
+  </div>
+
+  <div class="foot" id="foot"></div>
 </div>
 
 <script>
-/* ============================================================
-   DATA — replace with real RankPrompt values (matrix-board skill).
-   Every number must come from MCP data; never invent points.
-   - thresholds: the Matrix cutoffs (Visibility 25%, Citation 5%).
-   - axisMax: top of each axis's HIGH range (for scaling the plot).
-   - points: default view (All platforms / All locations).
-       {id, label, you?, visibility (0-100 %), citation (0-100 % share)}
-   - byPlatform / byLocation: optional overrides, same point shape.
-   - timeline: optional snapshots for the movement trail (YOU + others):
-       [{date:"2026-05-01", points:[{id, visibility, citation}, ...]}, ...]
-   ============================================================ */
+/* =====================================================================
+   DATA — every number is real RankPrompt data for Ampersand Studios.
+   See the matrix-board SKILL.md for the full contract of each field.
+   ===================================================================== */
 const DATA = {
-  brand: "Your brand",
+  /* ---- Replace every value with real RankPrompt data. This sample renders standalone. ----
+     brand/domain    : brand name + own domain (used to highlight "your page" in prompts + leaderboards).
+     thresholds      : Matrix cutoffs. Visibility HIGH >=25, Citation HIGH >=5 (4-5 = soft edge).
+     axisMax         : top of each axis's HIGH range, for scaling only (does not change the square).
+     locations/categories: dropdown values. Keep "All" first. Categories should be the report's `category` values.
+     reportBase      : URL prefix for a report; the report id is appended. Swap for tokenized client share links.
+     segments[]      : ONE row per (location x category). visibility = brand_appears rate (%);
+                       citation = own-domain citations / all citations in that segment (%). Plot each on its own.
+     competitorsByLocation{} : per location, competitors to plot + leaderboard. visibility = share of prompts
+                       they appear in; citation = their domain's share of citations. Omit any whose visibility
+                       you cannot measure (don't fake it).
+     timelineByLocation{}    : weekly snapshots per location for the movement trail + report-history tab.
+                       {date, visibility, citation, id}. The trail shows when a single location + All categories.
+     citationLeaderboard{}   : per location {total, rows:[{domain,count}]} — most-cited domains.
+     prompts[]       : sample prompts to drill into. outcome "win"|"gap"; per platform appeared/rank/top sources.
+  ---- */
+  brand: "Your Brand",
+  domain: "yourbrand.com",
   thresholds: { visibility: 25, citation: 5 },
-  axisMax:    { visibility: 100, citation: 20 },
-  platforms: ["All","ChatGPT","Perplexity","AI Overviews","Claude"],
-  locations: ["All"],
-  points: [
-    { id:"YOU", label:"Your brand", you:true, visibility:34, citation:3.4 },
-    { id:"A", label:"Market leader", visibility:74, citation:13 },
-    { id:"B", label:"Competitor",    visibility:16, citation:9 },
-    { id:"C", label:"Competitor",    visibility:52, citation:6.2 },
-    { id:"D", label:"Competitor",    visibility:40, citation:2.1 },
-    { id:"E", label:"Competitor",    visibility:9,  citation:1.4 }
+  axisMax:    { visibility: 100, citation: 12 },
+  locations:  ["All","Location A","Location B"],
+  categories: ["All","Category One","Category Two"],
+  reportBase: "https://app.rankprompt.com/reports/",
+
+  segments: [
+    { loc:"Location A", cat:"Category One", prompts:8,  visibility:72.0, citation:9.0 },  // Winning
+    { loc:"Location A", cat:"Category Two", prompts:7,  visibility:55.0, citation:2.5 },  // Recommended, not sourced
+    { loc:"Location B", cat:"Category One", prompts:8,  visibility:18.0, citation:7.0 },  // Cited, not chosen
+    { loc:"Location B", cat:"Category Two", prompts:7,  visibility:15.0, citation:2.0 }   // Invisible
   ],
-  byPlatform: {
-    "ChatGPT":     [ {id:"YOU",label:"Your brand",you:true,visibility:41,citation:3.8},{id:"A",label:"Market leader",visibility:80,citation:15},{id:"C",label:"Competitor",visibility:58,citation:7} ],
-    "Perplexity":  [ {id:"YOU",label:"Your brand",you:true,visibility:28,citation:2.4},{id:"A",label:"Market leader",visibility:66,citation:11},{id:"B",label:"Competitor",visibility:22,citation:8} ]
+
+  competitorsByLocation: {
+    "Location A": [
+      { id:"L", name:"Market Leader", visibility:82.0, citation:11.0 },
+      { id:"B", name:"Rival B",       visibility:48.0, citation:6.0 },
+      { id:"C", name:"Rival C",       visibility:30.0, citation:3.0 }
+    ],
+    "Location B": [
+      { id:"L", name:"Market Leader", visibility:70.0, citation:9.0 },
+      { id:"B", name:"Rival B",       visibility:40.0, citation:4.0 },
+      { id:"C", name:"Rival C",       visibility:22.0, citation:5.0 }
+    ]
   },
-  byLocation: {},
-  timeline: [
-    { date:"2026-05-01", points:[ {id:"YOU",visibility:10,citation:1.0} ] },
-    { date:"2026-06-01", points:[ {id:"YOU",visibility:19,citation:2.0} ] },
-    { date:"2026-07-01", points:[ {id:"YOU",visibility:34,citation:3.4} ] }
+
+  timelineByLocation: {
+    "Location A": [
+      {date:"May 15", visibility:40.0, citation:3.0, id:"REPORT_ID_A1"},
+      {date:"May 29", visibility:52.0, citation:4.0, id:"REPORT_ID_A2"},
+      {date:"Jun 12", visibility:58.0, citation:5.0, id:"REPORT_ID_A3"},
+      {date:"Jun 26", visibility:61.0, citation:6.0, id:"REPORT_ID_A4"},
+      {date:"Jul 10", visibility:64.0, citation:6.0, id:"REPORT_ID_A5"},
+      {date:"Jul 17", visibility:63.0, citation:6.0, id:"REPORT_ID_A6"}
+    ],
+    "Location B": [
+      {date:"May 15", visibility:55.0, citation:7.0, id:"REPORT_ID_B1"},
+      {date:"May 29", visibility:48.0, citation:6.0, id:"REPORT_ID_B2"},
+      {date:"Jun 12", visibility:40.0, citation:6.0, id:"REPORT_ID_B3"},
+      {date:"Jun 26", visibility:30.0, citation:6.0, id:"REPORT_ID_B4"},
+      {date:"Jul 10", visibility:22.0, citation:5.0, id:"REPORT_ID_B5"},
+      {date:"Jul 17", visibility:17.0, citation:5.0, id:"REPORT_ID_B6"}
+    ]
+  },
+
+  citationLeaderboard: {
+    "Location A": { total:220, rows:[
+      {domain:"market-leader.com",count:24},{domain:"aggregator-1.com",count:20},
+      {domain:"yourbrand.com",count:18},{domain:"directory-2.com",count:14},
+      {domain:"rival-b.com",count:12},{domain:"review-site.com",count:9}
+    ]},
+    "Location B": { total:180, rows:[
+      {domain:"market-leader.com",count:22},{domain:"aggregator-1.com",count:19},
+      {domain:"rival-c.com",count:12},{domain:"yourbrand.com",count:10},
+      {domain:"directory-2.com",count:8},{domain:"review-site.com",count:6}
+    ]}
+  },
+
+  trendCompetitors: {"Location A": ["market-leader.com", "rival-b.com"], "Location B": ["market-leader.com", "rival-b.com"]},
+  trends: {"Location A": [{"date": "May 15", "you": {"vis": 40, "cit": 3.0, "visByPlatform": {"chatgpt": 42, "perplexity": 38, "ai_overviews": 40}, "byCategory": {"Category One": {"vis": 30, "cit": 2.0}, "Category Two": {"vis": 62, "cit": 4.0}}}, "competitors": {"market-leader.com": {"cit": 11, "vis": 60}, "rival-b.com": {"cit": 6, "vis": 40}}}, {"date": "May 29", "you": {"vis": 52, "cit": 4.0, "visByPlatform": {"chatgpt": 55, "perplexity": 50, "ai_overviews": 51}, "byCategory": {"Category One": {"vis": 45, "cit": 3.0}, "Category Two": {"vis": 70, "cit": 5.0}}}, "competitors": {"market-leader.com": {"cit": 12, "vis": 66}, "rival-b.com": {"cit": 6, "vis": 42}}}, {"date": "Jun 12", "you": {"vis": 58, "cit": 5.0, "visByPlatform": {"chatgpt": 60, "perplexity": 55, "ai_overviews": 59}, "byCategory": {"Category One": {"vis": 52, "cit": 4.2}, "Category Two": {"vis": 74, "cit": 6.0}}}, "competitors": {"market-leader.com": {"cit": 12, "vis": 70}, "rival-b.com": {"cit": 5, "vis": 44}}}, {"date": "Jun 26", "you": {"vis": 61, "cit": 6.0, "visByPlatform": {"chatgpt": 63, "perplexity": 60, "ai_overviews": 60}, "byCategory": {"Category One": {"vis": 55, "cit": 5.0}, "Category Two": {"vis": 78, "cit": 7.0}}}, "competitors": {"market-leader.com": {"cit": 11, "vis": 72}, "rival-b.com": {"cit": 5, "vis": 45}}}, {"date": "Jul 10", "you": {"vis": 64, "cit": 6.0, "visByPlatform": {"chatgpt": 66, "perplexity": 62, "ai_overviews": 64}, "byCategory": {"Category One": {"vis": 58, "cit": 5.4}, "Category Two": {"vis": 80, "cit": 6.6}}}, "competitors": {"market-leader.com": {"cit": 10, "vis": 74}, "rival-b.com": {"cit": 4, "vis": 46}}}, {"date": "Jul 17", "you": {"vis": 63, "cit": 6.0, "visByPlatform": {"chatgpt": 64, "perplexity": 63, "ai_overviews": 62}, "byCategory": {"Category One": {"vis": 57, "cit": 5.2}, "Category Two": {"vis": 79, "cit": 6.8}}}, "competitors": {"market-leader.com": {"cit": 11, "vis": 73}, "rival-b.com": {"cit": 4, "vis": 46}}}], "Location B": [{"date": "May 15", "you": {"vis": 55, "cit": 7.0, "visByPlatform": {"chatgpt": 60, "perplexity": 52, "ai_overviews": 53}, "byCategory": {"Category One": {"vis": 48, "cit": 6.0}, "Category Two": {"vis": 66, "cit": 8.0}}}, "competitors": {"market-leader.com": {"cit": 9, "vis": 55}, "rival-b.com": {"cit": 4, "vis": 30}}}, {"date": "May 29", "you": {"vis": 48, "cit": 6.0, "visByPlatform": {"chatgpt": 52, "perplexity": 46, "ai_overviews": 47}, "byCategory": {"Category One": {"vis": 40, "cit": 5.0}, "Category Two": {"vis": 60, "cit": 7.0}}}, "competitors": {"market-leader.com": {"cit": 9, "vis": 50}, "rival-b.com": {"cit": 4, "vis": 28}}}, {"date": "Jun 12", "you": {"vis": 40, "cit": 6.0, "visByPlatform": {"chatgpt": 44, "perplexity": 40, "ai_overviews": 36}, "byCategory": {"Category One": {"vis": 32, "cit": 5.5}, "Category Two": {"vis": 55, "cit": 6.5}}}, "competitors": {"market-leader.com": {"cit": 8, "vis": 44}, "rival-b.com": {"cit": 6, "vis": 26}}}, {"date": "Jun 26", "you": {"vis": 30, "cit": 6.0, "visByPlatform": {"chatgpt": 33, "perplexity": 30, "ai_overviews": 28}, "byCategory": {"Category One": {"vis": 22, "cit": 5.8}, "Category Two": {"vis": 48, "cit": 6.0}}}, "competitors": {"market-leader.com": {"cit": 8, "vis": 40}, "rival-b.com": {"cit": 6, "vis": 24}}}, {"date": "Jul 10", "you": {"vis": 22, "cit": 5.0, "visByPlatform": {"chatgpt": 26, "perplexity": 24, "ai_overviews": 17}, "byCategory": {"Category One": {"vis": 13, "cit": 4.7}, "Category Two": {"vis": 40, "cit": 5.7}}}, "competitors": {"market-leader.com": {"cit": 7, "vis": 38}, "rival-b.com": {"cit": 5, "vis": 22}}}, {"date": "Jul 17", "you": {"vis": 17, "cit": 5.0, "visByPlatform": {"chatgpt": 20, "perplexity": 18, "ai_overviews": 7}, "byCategory": {"Category One": {"vis": 10, "cit": 3.2}, "Category Two": {"vis": 33, "cit": 6.8}}}, "competitors": {"market-leader.com": {"cit": 7, "vis": 38}, "rival-b.com": {"cit": 4, "vis": 20}}}]},
+  prompts: [
+    { text:"Sample prompt where the brand is absent and a competitor is cited?", loc:"Location B", cat:"Category One", outcome:"gap",
+      platforms:[
+        {platform:"chatgpt", appeared:false, rank:null, sources:[{n:"market-leader.com",u:"https://market-leader.com"},{n:"aggregator-1.com",u:"https://aggregator-1.com"}]},
+        {platform:"perplexity", appeared:false, rank:null, sources:[{n:"directory-2.com",u:"https://directory-2.com"}]},
+        {platform:"ai_overviews", appeared:false, rank:null, sources:[]}
+      ]},
+    { text:"Sample prompt where the brand wins and its own page is cited?", loc:"Location A", cat:"Category One", outcome:"win",
+      platforms:[
+        {platform:"chatgpt", appeared:true, rank:1, sources:[{n:"yourbrand.com",u:"https://yourbrand.com/best-page"},{n:"market-leader.com",u:"https://market-leader.com"}]},
+        {platform:"perplexity", appeared:true, rank:2, sources:[{n:"yourbrand.com",u:"https://yourbrand.com/best-page"},{n:"review-site.com",u:"https://review-site.com"}]},
+        {platform:"ai_overviews", appeared:true, rank:1, sources:[{n:"Your Brand",u:"https://yourbrand.com/best-page"}]}
+      ]}
   ]
 };
 
-/* ---- scaling: piecewise so the threshold sits at plot center (like the mockup) ---- */
-function scale(v, threshold, max){
-  // returns 0..1 across the axis; threshold maps to 0.5
-  if (v <= threshold) return (v/threshold)*0.5;
-  const hi = Math.max(max, threshold+0.0001);
-  return 0.5 + Math.min((v-threshold)/(hi-threshold),1)*0.5;
-}
+/* ---------- helpers ---------- */
+/* threshold maps to 0.5 (center gridline); 0.06 margin at both ends so extreme points aren't clipped */
+function scale(v, t, max){ if (v<=t) return 0.06 + (v/t)*0.44; const hi=Math.max(max,t+1e-4); return 0.5 + Math.min((v-t)/(hi-t),1)*0.44; }
 const xOf = p => scale(p.citation, DATA.thresholds.citation, DATA.axisMax.citation)*100;
-const yOf = p => (1 - scale(p.visibility, DATA.thresholds.visibility, DATA.axisMax.visibility))*100; // invert: high visibility = top
-
-const plot = document.getElementById('plot');
-const trail = document.getElementById('trail');
-const fPlat = document.getElementById('fPlatform');
-const fLoc  = document.getElementById('fLocation');
-const timewrap = document.getElementById('timewrap');
-const slider = document.getElementById('timeSlider');
-const tdate = document.getElementById('timeDate');
-const playBtn = document.getElementById('playBtn');
-
-DATA.platforms.forEach(p=>fPlat.add(new Option(p,p)));
-DATA.locations.forEach(l=>fLoc.add(new Option(l,l)));
-
-function currentPoints(){
-  const pl = fPlat.value, lo = fLoc.value;
-  if (pl!=="All" && DATA.byPlatform[pl]) return DATA.byPlatform[pl];
-  if (lo!=="All" && DATA.byLocation[lo]) return DATA.byLocation[lo];
-  return DATA.points;
+const yOf = p => (1 - scale(p.visibility, DATA.thresholds.visibility, DATA.axisMax.visibility))*100;
+function squareOf(v,c){
+  const vH=v>=DATA.thresholds.visibility, cH=c>=DATA.thresholds.citation;
+  if(vH&&cH) return {name:"Winning",cls:"win"};
+  if(vH&&!cH) return {name:"Recommended, not sourced",cls:"rec"};
+  if(!vH&&cH) return {name:"Cited, not chosen",cls:"cited"};
+  return {name:"Invisible",cls:"invis"};
 }
+const shortLoc = l => l.split(',')[0];
+const shortCat = c => (c.indexOf("Content")>=0||c.indexOf("Studio")>=0) ? "Studio" : (c.indexOf("Coworking")>=0 ? "Coworking" : (c.indexOf("Flexible")>=0 ? "Flexible" : c));
+const segBadge = s => shortLoc(s.loc)[0] + "·" + shortCat(s.cat)[0];   // e.g. N·S
+const segLabel = s => shortLoc(s.loc) + " · " + shortCat(s.cat);
+function isSelf(x){ const s=(x.u||x.n||"").toLowerCase(); return s.indexOf("amperstudios.com")>=0 || (x.n||"").toLowerCase().indexOf("ampersand")>=0; }
 
-function clearMarkers(){ plot.querySelectorAll('.pt').forEach(n=>n.remove()); trail.querySelectorAll('polyline,line').forEach(n=>n.remove()); }
+/* ---------- element refs ---------- */
+const plot=document.getElementById('plot'), trail=document.getElementById('trail');
+const fLoc=document.getElementById('fLocation'), fCat=document.getElementById('fCategory');
+const timewrap=document.getElementById('timewrap'), slider=document.getElementById('timeSlider');
+const tdate=document.getElementById('timeDate'), playBtn=document.getElementById('playBtn');
+const storynote=document.getElementById('storynote'), tabbody=document.getElementById('tabbody'), foot=document.getElementById('foot');
+const fShowComp=document.getElementById('fShowComp');
+let showComp=true, trendMetric='citation', trendCompare='competitors';
 
-function draw(points, arrowFrom){
-  clearMarkers();
+DATA.locations.forEach(l=>fLoc.add(new Option(l==="All"?"All locations":l,l)));
+DATA.categories.forEach(c=>fCat.add(new Option(c==="All"?"All categories":c,c)));
+
+/* ---------- current selection ---------- */
+function selSegments(){
+  const lo=fLoc.value, ca=fCat.value;
+  return DATA.segments.filter(s=>(lo==="All"||s.loc===lo)&&(ca==="All"||s.cat===ca));
+}
+function selCompetitors(){
+  const lo=fLoc.value;
+  return (lo!=="All" && DATA.competitorsByLocation[lo]) ? DATA.competitorsByLocation[lo] : [];
+}
+function timelineActive(){ return fLoc.value!=="All" && fCat.value==="All" && DATA.timelineByLocation[fLoc.value]; }
+function currentTimeline(){ return timelineActive() || []; }
+
+/* ---------- plot ---------- */
+function clearMarkers(){ plot.querySelectorAll('.pt').forEach(n=>n.remove()); trail.querySelectorAll('line').forEach(n=>n.remove()); if(typeof hideTip==='function') hideTip(); }
+const SQ_COLOR={win:'#22C55E',rec:'#3B82F6',cited:'#E8A838',invis:'#EF6461'};
+const mtip=document.getElementById('mtip');
+function showTip(e){
+  const el=e.currentTarget, v=+el.dataset.vis, c=+el.dataset.cit, sq=squareOf(v,c);
+  mtip.innerHTML='<b>'+el.dataset.lbl+'</b><br>Visibility <span class="mv">'+v.toFixed(1)+'%</span> &middot; Citation <span class="mv">'+c.toFixed(2)+'%</span>'
+    +'<span class="msq" style="color:'+SQ_COLOR[sq.cls]+'">'+sq.name+'</span>';
+  mtip.style.left=el.style.left; mtip.style.top=el.style.top; mtip.classList.add('on');
+}
+function hideTip(){ mtip.classList.remove('on'); }
+function placeMarkers(points){
   points.forEach(p=>{
     const el=document.createElement('div');
     el.className='pt'+(p.you?' you':'');
     el.style.left=xOf(p)+'%'; el.style.top=yOf(p)+'%';
-    el.innerHTML='<div class="dot">'+(p.you?'YOU':p.id)+'</div><div class="nm">'+p.label+'</div>';
+    const badge = p.you ? (p.badge||'YOU') : p.id;
+    el.innerHTML='<div class="dot">'+badge+'</div><div class="nm">'+p.label+'</div>';
+    el.dataset.vis=p.visibility; el.dataset.cit=p.citation; el.dataset.lbl=p.label;
+    el.title=p.label+' — Visibility '+(+p.visibility).toFixed(1)+'% · Citation '+(+p.citation).toFixed(2)+'%';
+    el.addEventListener('mouseenter',showTip); el.addEventListener('mouseleave',hideTip);
     plot.appendChild(el);
   });
-  if(arrowFrom){ // dashed movement arrow from a previous YOU position to current
-    const you=points.find(p=>p.you); if(you){
-      const ns='http://www.w3.org/2000/svg';
-      const line=document.createElementNS(ns,'line');
-      line.setAttribute('x1',xOf(arrowFrom)+'%'); line.setAttribute('y1',yOf(arrowFrom)+'%');
-      line.setAttribute('x2',xOf(you)+'%'); line.setAttribute('y2',yOf(you)+'%');
-      line.setAttribute('stroke','#6b4eff'); line.setAttribute('stroke-width','2');
-      line.setAttribute('stroke-dasharray','6 5'); line.setAttribute('marker-end','url(#ah)');
-      trail.appendChild(line);
-    }
-  }
+}
+function segPoints(){
+  const segs=selSegments();
+  const single=segs.length===1;
+  return segs.map(s=>({you:true, badge: single?'YOU':segBadge(s), label: single?segLabel(s):segLabel(s), visibility:s.visibility, citation:s.citation}));
+}
+function addLine(a,b,o){
+  const ns='http://www.w3.org/2000/svg', line=document.createElementNS(ns,'line');
+  line.setAttribute('x1',xOf(a)+'%'); line.setAttribute('y1',yOf(a)+'%');
+  line.setAttribute('x2',xOf(b)+'%'); line.setAttribute('y2',yOf(b)+'%');
+  line.setAttribute('stroke','#6b4eff'); line.setAttribute('stroke-width',o.w||2); line.setAttribute('stroke-linecap','round');
+  if(o.marker) line.setAttribute('marker-end','url(#ah)');
+  if(o.opacity!=null) line.setAttribute('opacity',o.opacity);
+  trail.appendChild(line);
+}
+function drawStatic(){ clearMarkers(); if(showComp) placeMarkers(selCompetitors().map(c=>({id:c.id,label:c.name,visibility:c.visibility,citation:c.citation}))); placeMarkers(segPoints()); }
+function drawSnapshot(i){
+  clearMarkers();
+  const tl=currentTimeline();
+  if(showComp) placeMarkers(selCompetitors().map(c=>({id:c.id,label:c.name,visibility:c.visibility,citation:c.citation})));
+  for(let k=1;k<=i;k++){ const last=(k===i); addLine(tl[k-1],tl[k],{w:last?3:2,opacity:last?1:0.30,marker:last}); }
+  placeMarkers([{you:true,badge:'YOU',label:DATA.brand+" ("+shortLoc(fLoc.value)+")",visibility:tl[i].visibility,citation:tl[i].citation}]);
+  tdate.textContent=tl[i].date;
 }
 
-/* time mode */
-const hasTimeline = Array.isArray(DATA.timeline) && DATA.timeline.length>1;
+/* ---------- play ---------- */
 let playing=null;
-function youAt(i){
-  const snap=DATA.timeline[i]; const yp=snap.points.find(p=>p.id==="YOU");
-  // merge the YOU snapshot onto the current (filtered) competitor set
-  const base=currentPoints().filter(p=>!p.you);
-  return [{id:"YOU",label:"Your brand",you:true,visibility:yp.visibility,citation:yp.citation}, ...base];
-}
-function showSnapshot(i){
-  tdate.textContent=DATA.timeline[i].date;
-  const prev = i>0 ? DATA.timeline[i-1].points.find(p=>p.id==="YOU") : null;
-  draw(youAt(i), prev);
-}
-if(hasTimeline){
-  timewrap.classList.add('on');
-  slider.max=DATA.timeline.length-1; slider.value=DATA.timeline.length-1;
-  slider.addEventListener('input',()=>{ stop(); showSnapshot(+slider.value); });
-  playBtn.addEventListener('click',()=>{ playing?stop():play(); });
-}
-function play(){ playBtn.textContent='❚❚ Pause'; let i=+slider.value>=DATA.timeline.length-1?0:+slider.value;
-  showSnapshot(i); slider.value=i;
-  playing=setInterval(()=>{ i++; if(i>=DATA.timeline.length){stop();return;} slider.value=i; showSnapshot(i); },1100); }
 function stop(){ if(playing){clearInterval(playing);playing=null;} playBtn.textContent='▶ Play'; }
+function play(){ const tl=currentTimeline(); playBtn.textContent='❚❚ Pause'; let i=(+slider.value>=tl.length-1)?0:+slider.value; drawSnapshot(i); slider.value=i;
+  playing=setInterval(()=>{ i++; if(i>=tl.length){stop();return;} slider.value=i; drawSnapshot(i); },1100); }
+slider.addEventListener('input',()=>{ stop(); drawSnapshot(+slider.value); });
+playBtn.addEventListener('click',()=>{ playing?stop():play(); });
 
-fPlat.addEventListener('change',render);
-fLoc.addEventListener('change',render);
+/* ---------- story + play-card tags ---------- */
+const STORY={
+  // Optional narrative per view, keyed "<Location>|<Category>". Unmatched keys render no note.
+  "All|All":"<b>Your brand sits in different squares across segments.</b> Filter by Location and Category to isolate each one, or press Play (single location, All categories) to watch a market move over time. Replace this copy per view in DATA-adjacent STORY.",
+  "Location A|All":"<b>Location A &mdash; edit this note.</b> Summarize the market's headline: which categories are Winning vs lagging, and the one play.",
+  "Location B|All":"<b>Location B &mdash; edit this note.</b> Summarize the trend (press Play) and the single highest-leverage move."
+};
+
+function updateStory(){ storynote.innerHTML = STORY[fLoc.value+"|"+fCat.value] || ""; }
+function updateCards(){
+  document.querySelectorAll('.pc .segs').forEach(box=>box.innerHTML='');
+  DATA.segments.forEach(s=>{
+    const sq=squareOf(s.visibility,s.citation);
+    const box=document.querySelector('.pc .segs[data-sq="'+sq.cls+'"]');
+    if(box){ const t=document.createElement('span'); t.className='seg'; t.textContent=segLabel(s); box.appendChild(t); }
+  });
+}
+
+/* ---------- tabs ---------- */
+let activeTab='prompts';
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active'); activeTab=t.dataset.tab; renderTab();
+}));
+function filtInfo(){ const lo=fLoc.value, ca=fCat.value; const parts=[]; if(lo!=="All")parts.push(shortLoc(lo)); if(ca!=="All")parts.push(shortCat(ca)); return parts.length?parts.join(" · "):"all locations & categories"; }
+
+function renderPrompts(){
+  const lo=fLoc.value, ca=fCat.value;
+  const rows=DATA.prompts.filter(p=>(lo==="All"||p.loc===lo)&&(ca==="All"||p.cat===ca));
+  let h='<div class="hint">Showing '+rows.length+' sample prompt'+(rows.length===1?'':'s')+' for '+filtInfo()+'. Click any prompt to see how each engine answered and what it cited.</div>';
+  if(!rows.length) return h+'<div class="hint">No sample prompts match this filter.</div>';
+  rows.forEach((p,idx)=>{
+    const oc = p.outcome==="win" ? '<span class="chip win">Featured</span>' : '<span class="chip gap">Absent</span>';
+    h+='<div class="prow"><div class="phead" onclick="togglePrompt('+idx+')">'
+      +'<div class="pmeta"><span class="chip loc">'+shortLoc(p.loc)+'</span><span class="chip cat">'+shortCat(p.cat)+'</span>'+oc+'</div>'
+      +'<div class="ptext">'+p.text+'</div><div class="pcaret" id="car'+idx+'">▸</div></div>'
+      +'<div class="pbody" id="pb'+idx+'">';
+    p.platforms.forEach(pl=>{
+      const chip = pl.appeared ? '<span class="badge2 yes">Appears</span>'+(pl.rank?'<span class="rank">#'+pl.rank+'</span>':'') : '<span class="badge2 no">Absent</span>';
+      h+='<div class="plat"><div class="ph"><span class="pn">'+pl.platform.replace('_',' ')+'</span>'+chip+'</div>';
+      if(pl.sources && pl.sources.length){ h+='<div class="srcs">'; pl.sources.forEach((s,i2)=>{ h+='<div class="src'+(isSelf(s)?' self':'')+'"><span class="i">'+(i2+1)+'.</span><a href="'+s.u+'" target="_blank" rel="noopener">'+s.n+'</a></div>'; }); h+='</div>'; }
+      else h+='<div class="hint" style="margin:0">No citable sources recorded for this engine.</div>';
+      h+='</div>';
+    });
+    h+='</div></div>';
+  });
+  return h;
+}
+function togglePrompt(i){ document.getElementById('pb'+i).classList.toggle('on'); const c=document.getElementById('car'+i); c.textContent=c.textContent==='▸'?'▾':'▸'; }
+
+function renderHistory(){
+  const lo=fLoc.value;
+  let rows=[];
+  Object.keys(DATA.timelineByLocation).forEach(loc=>{ if(lo==="All"||lo===loc) DATA.timelineByLocation[loc].forEach(r=>rows.push({loc, date:r.date, visibility:r.visibility, citation:r.citation, id:r.id})); });
+  const order={"Jul":7,"Jun":6,"May":5};
+  rows.sort((a,b)=>{ const am=order[a.date.slice(0,3)]*100+ +a.date.slice(4), bm=order[b.date.slice(0,3)]*100+ +b.date.slice(4); return bm-am; });
+  let h='<div class="hint">Every scheduled report for '+(lo==="All"?"all locations":shortLoc(lo))+', newest first — these are the report-level Visibility Score and Citation Share (matching RankPrompt). Each row links to the live report.</div>';
+  h+='<table><thead><tr><th>Date</th><th>Location</th><th>Visibility</th><th>Citation</th><th>Square</th><th>Report</th></tr></thead><tbody>';
+  rows.forEach(r=>{ const sq=squareOf(r.visibility,r.citation);
+    h+='<tr><td style="font-weight:700;color:var(--ink)">'+r.date+'</td><td>'+shortLoc(r.loc)+'</td><td>'+r.visibility.toFixed(2)+'%</td><td>'+r.citation.toFixed(2)+'%</td>'
+      +'<td><span class="sq '+sq.cls+'">'+sq.name+'</span></td>'
+      +'<td><a class="rl" href="'+DATA.reportBase+r.id+'" target="_blank" rel="noopener">Open ↗</a></td></tr>';
+  });
+  h+='</tbody></table>';
+  return h;
+}
+
+function leaderboard(items, valKey, fmt, meTest, maxVal){
+  const mx = maxVal || Math.max.apply(null, items.map(i=>i[valKey]));
+  let h='<div class="lb">';
+  items.forEach((it,i)=>{ const me=meTest(it); const w=Math.max(3, (it[valKey]/mx)*100);
+    h+='<div class="lbrow'+(me?' me':'')+'"><div class="rk">'+(i+1)+'</div>'
+      +'<div class="nm2">'+(it.link?'<a href="'+it.link+'" target="_blank" rel="noopener">'+it.name+'</a>':it.name)+'</div>'
+      +'<div class="bar"><span style="width:'+w+'%"></span></div>'
+      +'<div class="val">'+fmt(it[valKey])+'</div></div>';
+  });
+  return h+'</div>';
+}
+function renderCompetitors(){
+  const lo=fLoc.value;
+  const locs = lo==="All"?DATA.locations.filter(l=>l!=="All"):[lo];
+  let h='<div class="hint">Share of voice &mdash; who AI recommends most in each market (% of tracked prompts where the brand appears). Ampersand highlighted.</div>';
+  h+='<div class="lbcols'+(locs.length>1?' two':'')+'">';
+  locs.forEach(L=>{
+    const you={name:DATA.brand, visibility: DATA.segments.filter(s=>s.loc===L).reduce((a,s)=>a+s.visibility*s.prompts,0)/DATA.segments.filter(s=>s.loc===L).reduce((a,s)=>a+s.prompts,0), me:true};
+    const list=DATA.competitorsByLocation[L].map(c=>({name:c.name,visibility:c.visibility})).concat([you]).sort((a,b)=>b.visibility-a.visibility);
+    h+='<div><div class="lbcap">'+shortLoc(L)+'</div>'+leaderboard(list,'visibility',v=>v.toFixed(1)+'%',it=>it.me===true,100)+'</div>';
+  });
+  return h+'</div>';
+}
+function renderCitations(){
+  const lo=fLoc.value;
+  const locs = lo==="All"?DATA.locations.filter(l=>l!=="All"):[lo];
+  let h='<div class="hint">Most-cited domains &mdash; whose pages AI quotes when answering this market\'s prompts. Your own domain highlighted.</div>';
+  h+='<div class="lbcols'+(locs.length>1?' two':'')+'">';
+  locs.forEach(L=>{
+    const lb=DATA.citationLeaderboard[L];
+    const rows2=lb.rows.map(r=>({name:r.domain, count:r.count, link:'https://'+r.domain}));
+    h+='<div><div class="lbcap">'+shortLoc(L)+' &middot; '+lb.total+' citations</div>'
+      +leaderboard(rows2,'count',v=>v+' ('+(v/lb.total*100).toFixed(1)+'%)',it=>it.name.indexOf('amperstudios.com')>=0, rows2[0].count)+'</div>';
+  });
+  return h+'</div>';
+}
+function renderTab(){
+  if(activeTab==='prompts') tabbody.innerHTML=renderPrompts();
+  else if(activeTab==='history') tabbody.innerHTML=renderHistory();
+  else if(activeTab==='competitors') tabbody.innerHTML=renderCompetitors();
+  else tabbody.innerHTML=renderCitations();
+}
+
+/* ---------- trends over time ---------- */
+const TREND_PAL=['#3B82F6','#22C55E','#E8A838','#0ea5e9'];
+const PLAT_META={chatgpt:{n:"ChatGPT",c:"#0ea5e9"},perplexity:{n:"Perplexity",c:"#8b5cf6"},ai_overviews:{n:"AI Overviews",c:"#f59e0b"}};
+const CAT_COLOR={"Coworking Spaces":"#3B82F6","Content Studio Rentals":"#22C55E","Flexible Workspaces":"#E8A838"};
+function metricKey(){ return trendMetric==='citation'?'cit':'vis'; }
+function metricLabel(m){ return (m||trendMetric)==='citation'?'Citation Share':'Visibility Score'; }
+function niceCeil(v){ const steps=[6,8,10,12,15,20,25,30,40,50,60,80,100]; for(const s of steps){ if(v<=s) return s; } return Math.ceil(v/10)*10; }
+
+function trendSeries(){
+  const lo=fLoc.value, ca=fCat.value, mk=metricKey();
+  if(lo==="All"){
+    const locs=Object.keys(DATA.trends);
+    const xLabels=DATA.trends[locs[0]].map(w=>w.date);
+    const series=locs.map((L,i)=>({ name:"You · "+shortLoc(L), color:i===0?'#6b4eff':'#3B82F6', you:i===0,
+      values: DATA.trends[L].map(w=> ca==="All"? w.you[mk] : (w.you.byCategory[ca]? w.you.byCategory[ca][mk] : 0)) }));
+    return { series, xLabels, note:"Showing your "+metricLabel()+" in each market. Pick a single location to compare competitors, engines or categories." };
+  }
+  const weeks=DATA.trends[lo]||[]; const xLabels=weeks.map(w=>w.date);
+  if(trendCompare==='platform'){
+    const series=Object.keys(PLAT_META).map(p=>({ name:PLAT_META[p].n, color:PLAT_META[p].c,
+      values: weeks.map(w=> w.you.visByPlatform[p]) }));
+    return { series, xLabels, forceVis:true,
+      note:"Your Visibility Score split by engine. Per-platform citation share isn't tracked, so this view is visibility only." };
+  }
+  if(trendCompare==='category'){
+    const cats=DATA.categories.filter(c=>c!=="All");
+    const cpal=['#3B82F6','#22C55E','#E8A838','#8b5cf6'];
+    const series=cats.map((c,i)=>({ name:shortCat(c), color:CAT_COLOR[c]||cpal[i%cpal.length],
+      values: weeks.map(w=> w.you.byCategory[c]? w.you.byCategory[c][mk] : 0) }));
+    return { series, xLabels, note:"Your "+metricLabel()+" split by category." };
+  }
+  // competitors
+  const you={ name:"You"+(ca==="All"?"":" · "+shortCat(ca)), color:'#6b4eff', you:true,
+    values: weeks.map(w=> ca==="All"? w.you[mk] : (w.you.byCategory[ca]? w.you.byCategory[ca][mk] : 0)) };
+  const comps=(DATA.trendCompetitors[lo]||[]).map((d,i)=>({ name:d, color:TREND_PAL[i%TREND_PAL.length],
+    values: weeks.map(w=> w.competitors[d]? w.competitors[d][mk] : 0) }));
+  return { series:[you,...comps], xLabels,
+    note: ca==="All"? "" : "Your line is the "+shortCat(ca)+" category; competitor lines are market-level (all categories)." };
+}
+function buildChart(series,xLabels,yMax,threshold){
+  const W=860,H=320,L=44,T=16,R=16,B=46, pw=W-L-R, ph=H-T-B, n=xLabels.length;
+  const X=i=> L + (n<=1?0:(i/(n-1))*pw);
+  const Y=v=> T + (1 - v/yMax)*ph;
+  let g='';
+  for(let k=0;k<=4;k++){ const val=yMax*k/4, y=Y(val);
+    g+='<line x1="'+L+'" y1="'+y.toFixed(1)+'" x2="'+(W-R)+'" y2="'+y.toFixed(1)+'" stroke="#eef1f6"/>'
+      +'<text x="'+(L-8)+'" y="'+(y+3).toFixed(1)+'" text-anchor="end" font-size="10" fill="#94a3b8">'+Math.round(val)+'%</text>'; }
+  if(threshold!=null){ const y=Y(threshold);
+    g+='<line x1="'+L+'" y1="'+y.toFixed(1)+'" x2="'+(W-R)+'" y2="'+y.toFixed(1)+'" stroke="#cbd5e1" stroke-dasharray="5 4"/>'
+      +'<text x="'+(L+6)+'" y="'+(y-5).toFixed(1)+'" text-anchor="start" font-size="9" font-weight="700" fill="#b6c0cc">'+threshold+'% threshold</text>'; }
+  const step=Math.max(1,Math.ceil(n/7));
+  for(let i=0;i<n;i+=step){ g+='<text x="'+X(i).toFixed(1)+'" y="'+(H-B+18)+'" text-anchor="middle" font-size="10" fill="#94a3b8">'+xLabels[i]+'</text>'; }
+  series.forEach(s=>{
+    let d='';
+    s.values.forEach((v,i)=>{ d+=(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)+' '; });
+    g+='<path d="'+d+'" fill="none" stroke="'+s.color+'" stroke-width="'+(s.you?3:2)+'" stroke-linejoin="round" stroke-linecap="round"'+(s.you?'':' opacity="0.92"')+'/>';
+    s.values.forEach((v,i)=>{ g+='<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(v).toFixed(1)+'" r="'+(s.you?3.4:2.4)+'" fill="'+s.color+'"/>'; });
+  });
+  return '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="trend chart">'+g+'</svg>';
+}
+function buildLegend(series){ return series.map(s=>'<span class="lg"><span class="d" style="background:'+s.color+'"></span>'+s.name+(s.you?' <span class="yb">You</span>':'')+'</span>').join(''); }
+function updateTrendControls(){
+  document.querySelectorAll('#segMetric button').forEach(b=>{ b.classList.toggle('on', b.dataset.m===trendMetric); b.disabled=(trendCompare==='platform'); });
+  document.querySelectorAll('#segCompare button').forEach(b=> b.classList.toggle('on', b.dataset.c===trendCompare));
+}
+function drawTrends(){
+  const t=trendSeries();
+  const effVis = t.forceVis || trendMetric==='visibility';
+  let yMax, thr;
+  if(effVis){ yMax=100; thr=25; }
+  else { let mx=0; t.series.forEach(s=>s.values.forEach(v=>{ if(v>mx)mx=v; })); yMax=niceCeil(Math.max(mx,6)); thr=5; }
+  document.getElementById('trendchart').innerHTML=buildChart(t.series,t.xLabels,yMax,thr);
+  document.getElementById('trendlegend').innerHTML=buildLegend(t.series);
+  document.getElementById('trendnote').innerHTML=t.note||"";
+  updateTrendControls();
+}
+document.querySelectorAll('#segMetric button').forEach(b=>b.addEventListener('click',()=>{ if(b.disabled)return; trendMetric=b.dataset.m; drawTrends(); }));
+document.querySelectorAll('#segCompare button').forEach(b=>b.addEventListener('click',()=>{ trendCompare=b.dataset.c; if(trendCompare==='platform') trendMetric='visibility'; drawTrends(); }));
+
+/* ---------- master render ---------- */
 function render(){
   stop();
-  if(hasTimeline){ slider.value=DATA.timeline.length-1; showSnapshot(DATA.timeline.length-1); }
-  else draw(currentPoints());
+  updateStory(); updateCards(); drawTrends();
+  if(timelineActive() && currentTimeline().length>1){
+    timewrap.classList.add('on');
+    const tl=currentTimeline(); slider.max=tl.length-1; slider.value=tl.length-1; drawSnapshot(tl.length-1);
+  } else { timewrap.classList.remove('on'); drawStatic(); }
+  renderTab();
 }
+fLoc.addEventListener('change',render);
+fCat.addEventListener('change',render);
+fShowComp.addEventListener('change',()=>{ showComp=fShowComp.checked; render(); });
+
+foot.innerHTML='Sample data shown &mdash; replace the DATA block with real RankPrompt values (matrix-board skill). Visibility Score = share of tracked prompts where the brand is recommended. Citation Share = own-domain citations &divide; all citations. Thresholds: Visibility 25%, Citation 5% (4&ndash;5% is a soft edge). Report links append the report id to DATA.reportBase &mdash; use tokenized client share links when sending to a client.';
+
+/* default view: the full picture */
+fLoc.value="All"; fCat.value="All";
 render();
 </script>
 </body>
