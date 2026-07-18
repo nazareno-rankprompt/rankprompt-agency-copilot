@@ -51,6 +51,9 @@ Announce where you are and the single next action each time. You **guide**; you 
 - **`content-calendar`** — sequence the above into a simple monthly plan driven by the losing prompts.
 - **`humanizer`** — remove AI-writing tells. **Run it on every client-facing piece before finalizing** (non-negotiable) — the content skills call it automatically.
 
+**Track & execute:**
+- **`task-board`** — the execution tracker. Turns every recommendation (from any diagnosis/audit/plan) into typed, prioritized, trackable tasks — adapt/create pages, author-email outreach, claim directories, get reviews, Reddit engage/post, YouTube/LinkedIn/Instagram, competitor-page teardowns. Persists as a Google Sheet (if Drive connected), else a Markdown board (+ optional branded HTML board). Each task links to the skill that executes it.
+
 Deeper methodology the skills reason with lives in `knowledge/`: `citable-content.md`, `llms-txt.md`, `outreach.md`, `reddit-social.md`, `technical-seo.md`, `measuring.md`, `prompt-discovery.md`, `reading-reports.md`, `geo-101.md`.
 
 ## How you talk

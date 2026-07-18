@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>GEO Task Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--purple:#6b4eff;--accent:#a855f7;--ink:#0f172a;--slate:#475569;--body:#64748B;--border:#E2E8F0;--lightbg:#F8FAFC;
+    --content:#6b4eff;--onpage:#0891b2;--outreach:#7c3aed;--directories:#B45309;--reviews:#16a34a;--reddit:#EF6461;--social:#db2777;--competitive:#475569;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter,-apple-system,sans-serif;color:var(--ink);background:#eef0f4;font-size:14px;padding:32px 18px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .card{max-width:1200px;margin:0 auto;background:#fff;border-radius:22px;padding:34px 36px 40px;box-shadow:0 10px 40px rgba(15,23,42,.06)}
+  .top{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:16px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px}
+  .brand .m{width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,#6b4eff,#8b5cf6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px}
+  .kicker{color:var(--purple);font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase}
+  h1{font-size:26px;font-weight:800;margin:22px 0 4px;letter-spacing:-.3px}
+  .sub{color:var(--slate);font-size:13.5px;margin-bottom:18px}
+  .cols{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .col{background:var(--lightbg);border:1px solid var(--border);border-radius:14px;padding:12px 12px 6px}
+  .col h3{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--slate);display:flex;justify-content:space-between;margin-bottom:10px;padding:0 2px}
+  .col h3 .ct{color:var(--purple)}
+  .task{background:#fff;border:1px solid var(--border);border-left:4px solid var(--slate);border-radius:10px;padding:10px 12px;margin-bottom:9px}
+  .task .t{font-size:12.5px;font-weight:700;line-height:1.35}
+  .task .meta{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin-top:7px}
+  .lane{font-size:9.5px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:#fff;padding:2px 6px;border-radius:20px}
+  .pri{font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:20px;background:#eef1f6;color:var(--slate)}
+  .pri.H{background:#fef2f2;color:#dc2626}.pri.M{background:#fffbeb;color:#b45309}.pri.L{background:#f0fdf4;color:#15803d}
+  .tgt{font-size:11px;color:var(--body);margin-top:5px;word-break:break-all}
+  .via{font-size:10px;color:var(--body)}
+  .l-content{border-left-color:var(--content)} .l-onpage{border-left-color:var(--onpage)} .l-outreach{border-left-color:var(--outreach)}
+  .l-directories{border-left-color:var(--directories)} .l-reviews{border-left-color:var(--reviews)} .l-reddit{border-left-color:var(--reddit)}
+  .l-social{border-left-color:var(--social)} .l-competitive{border-left-color:var(--competitive)}
+  .bg-content{background:var(--content)} .bg-onpage{background:var(--onpage)} .bg-outreach{background:var(--outreach)}
+  .bg-directories{background:var(--directories)} .bg-reviews{background:var(--reviews)} .bg-reddit{background:var(--reddit)}
+  .bg-social{background:var(--social)} .bg-competitive{background:var(--competitive)}
+  .done .t{text-decoration:line-through;color:var(--body)}
+  @media(max-width:900px){.cols{grid-template-columns:1fr 1fr}}
+  @media print{@page{size:A4 landscape;margin:0}body{background:#fff;padding:0}.card{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="top"><div class="brand"><span class="m">&#9650;</span>RankPrompt</div><div class="kicker">GEO Task Board</div></div>
+  <h1 id="title">Client — GEO Task Board</h1>
+  <div class="sub" id="sub">Every action tied to a real citation gap. Work top-down by priority.</div>
+  <div class="cols" id="cols"></div>
+</div>
+<script>
+/* DATA — replace with real tasks (see task-board SKILL.md). lane ∈ content|onpage|outreach|directories|reviews|reddit|social|competitive; status ∈ Todo|In progress|Blocked|Done; priority ∈ H|M|L */
+const DATA = {
+  client:"Client",
+  tasks:[
+    {title:"Rebuild the Las Vegas location page as a local hub", lane:"content", target:"/pages/las-vegas-silent-disco", priority:"H", via:"listicle/how-to", status:"Todo"},
+    {title:"Optimize the New York page title + schema", lane:"onpage", target:"/pages/new-york", priority:"H", via:"technical-seo", status:"Todo"},
+    {title:"Find author emails + pitch inclusion: thefestivals.uk roundup", lane:"outreach", target:"thefestivals.uk/top-5…", priority:"M", via:"citation-outreach", status:"In progress"},
+    {title:"Claim + complete the G2 profile", lane:"directories", target:"g2.com", priority:"M", via:"manual", status:"Todo"},
+    {title:"Get 10 reviews on Clutch", lane:"reviews", target:"clutch.co", priority:"M", via:"manual", status:"Blocked"},
+    {title:"Engage in r/eventplanning", lane:"reddit", target:"r/eventplanning", priority:"M", via:"reddit", status:"In progress"},
+    {title:"Reddit post in r/corporateevents about silent conferences", lane:"reddit", target:"r/corporateevents", priority:"L", via:"reddit", status:"Todo"},
+    {title:"YouTube: 'How a silent conference actually works'", lane:"social", target:"youtube", priority:"L", via:"manual", status:"Todo"},
+    {title:"Scan soundoffexperience.com/new-york → improve our NY page", lane:"competitive", target:"competitor top-cited URL", priority:"H", via:"citation-audit", status:"Todo"},
+    {title:"Publish comparison: Quiet Events vs Silent Events", lane:"content", target:"/blog/quiet-events-vs-silent-events", priority:"H", via:"comparison", status:"Done", link:"#"}
+  ]
+};
+const STATUSES=["Todo","In progress","Blocked","Done"];
+const laneClass=l=>l.replace(/[^a-z]/g,'');
+document.getElementById('title').textContent = DATA.client+" — GEO Task Board";
+document.getElementById('cols').innerHTML = STATUSES.map(st=>{
+  const items = DATA.tasks.filter(t=>t.status===st);
+  const cards = items.map(t=>`<div class="task l-${laneClass(t.lane)} ${st==='Done'?'done':''}">
+      <div class="t">${t.title}</div>
+      ${t.target?`<div class="tgt">${t.target}</div>`:''}
+      <div class="meta"><span class="lane bg-${laneClass(t.lane)}">${t.lane}</span><span class="pri ${t.priority}">P·${t.priority}</span><span class="via">via ${t.via}</span></div>
+    </div>`).join('') || '<div class="via" style="padding:4px 2px 10px">—</div>';
+  return `<div class="col"><h3>${st}<span class="ct">${items.length}</span></h3>${cards}</div>`;
+}).join('');
+</script>
+</body>
+</html>

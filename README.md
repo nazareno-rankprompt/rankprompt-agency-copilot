@@ -41,6 +41,7 @@ CLAUDE.md              operating brief — the Matrix model, the MCP tools, the 
   listicle/ how-to-guide/ comparison/ faq-page/   create owned, citable content (Markdown + schema)
   content-calendar/    sequence the content plays into a monthly plan
   humanizer/           strip AI-writing tells — run on every client-facing piece
+  task-board/          recommendations → typed, trackable tasks (Sheet / Markdown / HTML board)
 knowledge/             the methodology the copilot reasons with
   matrix.md            the AI Visibility Matrix (the spine) + citation taxonomy
   brain.md             deep diagnostic mechanics (root causes, own-source autopsy)
