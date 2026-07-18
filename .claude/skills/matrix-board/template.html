@@ -22,7 +22,8 @@
   h1{font-size:34px;font-weight:800;line-height:1.15;letter-spacing:-.5px}
   h1 .a{color:var(--accent)}
   .sub{color:var(--slate);font-size:14px;line-height:1.6;margin-top:12px;max-width:800px}
-  .controls{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin:24px 0 6px}
+  .controls{position:sticky;top:0;z-index:40;background:#fff;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin:24px -44px 6px;padding:12px 44px 12px;border-bottom:1px solid var(--border)}
+  @media(max-width:760px){.controls{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}}
   .ctl{display:flex;flex-direction:column;gap:4px}
   .ctl span{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--body)}
   select{font-family:inherit;font-size:13px;font-weight:600;color:var(--ink);padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:#fff;cursor:pointer;min-width:170px}
@@ -48,7 +49,7 @@
   .pt{position:absolute;transform:translate(-50%,-50%);text-align:center;transition:left .6s ease,top .6s ease}
   .dot{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;background:#eef1f6;color:var(--slate);border:1px solid #e2e6ee;box-shadow:0 2px 6px rgba(15,23,42,.08);margin:0 auto}
   .pt.you .dot{width:52px;height:52px;border-radius:14px;background:var(--purple);color:#fff;font-size:13px;box-shadow:0 6px 18px rgba(107,78,255,.4);border:3px solid rgba(107,78,255,.25)}
-  .pt .nm{font-size:10.5px;font-weight:600;color:var(--slate);margin-top:5px;white-space:nowrap}
+  .pt .nm{font-size:10.5px;font-weight:600;color:var(--slate);margin-top:5px;white-space:nowrap;max-width:104px;overflow:hidden;text-overflow:ellipsis;margin-left:auto;margin-right:auto}
   .pt.you .nm{color:var(--purple);font-weight:700}
   .pt{cursor:default}
   .mtip{position:absolute;transform:translate(-50%,-142%);background:#0f172a;color:#fff;font-size:11.5px;font-weight:600;line-height:1.5;padding:8px 11px;border-radius:9px;pointer-events:none;white-space:nowrap;opacity:0;transition:opacity .12s;z-index:30;box-shadow:0 8px 20px rgba(15,23,42,.28)}
@@ -147,8 +148,18 @@
   .segc button.on{background:var(--purple);color:#fff}
   .segc button:disabled{opacity:.35;cursor:not-allowed}
   .seglabel{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--body);margin-right:6px}
-  .chartwrap{margin-top:14px}
+  .chartwrap{margin-top:14px;position:relative}
   .chartwrap svg{width:100%;height:auto;display:block}
+  .trendload{position:absolute;inset:0;display:none;align-items:center;justify-content:center;gap:9px;background:rgba(255,255,255,.72);font-size:12.5px;font-weight:700;color:var(--purple);z-index:5}
+  .trendload.on{display:flex}
+  .spin{width:15px;height:15px;border:2px solid rgba(107,78,255,.25);border-top-color:var(--purple);border-radius:50%;animation:spin .7s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .tguide{position:absolute;top:16px;bottom:46px;width:1px;background:rgba(107,78,255,.5);display:none;pointer-events:none;z-index:3}
+  .ttip{position:absolute;display:none;pointer-events:none;z-index:6;background:#0f172a;color:#fff;font-size:11px;line-height:1.5;padding:8px 10px;border-radius:9px;box-shadow:0 8px 20px rgba(15,23,42,.28);white-space:nowrap;transform:translate(-50%,-108%)}
+  .ttip .td{font-weight:800;color:#c4b5fd;margin-bottom:3px}
+  .ttip .tr{display:flex;align-items:center;gap:6px}
+  .ttip .tr i{width:8px;height:8px;border-radius:50%;display:inline-block}
+  .ttip .tr b{margin-left:auto;padding-left:10px}
   .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;justify-content:center}
   .lg{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--border);border-radius:20px;padding:5px 11px;font-size:12px;font-weight:600;color:var(--ink)}
   .lg .d{width:10px;height:10px;border-radius:50%;flex-shrink:0}
@@ -204,7 +215,12 @@
         <div><span class="seglabel">Compare</span><span class="segc" id="segCompare"><button data-c="competitors" class="on">Competitors</button><button data-c="platform">By platform</button><button data-c="category">By category</button></span></div>
       </div>
     </div>
-    <div class="chartwrap" id="trendchart"></div>
+    <div class="chartwrap" id="chartwrap">
+      <div id="trendchart"></div>
+      <div class="tguide" id="tguide"></div>
+      <div class="ttip" id="ttip"></div>
+      <div class="trendload" id="trendload"><span class="spin"></span>Loading results…</div>
+    </div>
     <div class="legend" id="trendlegend"></div>
     <div class="tnote" id="trendnote"></div>
   </div>
@@ -226,8 +242,8 @@
 
 <script>
 /* =====================================================================
-   DATA — every number is real RankPrompt data for Ampersand Studios.
-   See the matrix-board SKILL.md for the full contract of each field.
+   DATA — sample values so this renders standalone. Replace every value with
+   real RankPrompt data. See the matrix-board SKILL.md for the full contract.
    ===================================================================== */
 const DATA = {
   /* ---- Replace every value with real RankPrompt data. This sample renders standalone. ----
@@ -261,6 +277,12 @@ const DATA = {
     { loc:"Location B", cat:"Category Two", prompts:7,  visibility:15.0, citation:2.0 }   // Invisible
   ],
 
+  competitorsBySegment: {
+    "Location A|Category One":[{"id":"L","name":"Market Leader","visibility":80,"citation":12},{"id":"B","name":"Rival B","visibility":40,"citation":6}],
+    "Location A|Category Two":[{"id":"C","name":"Rival C","visibility":55,"citation":4}],
+    "Location B|Category One":[{"id":"L","name":"Market Leader","visibility":70,"citation":9},{"id":"C","name":"Rival C","visibility":30,"citation":5}],
+    "Location B|Category Two":[{"id":"B","name":"Rival B","visibility":38,"citation":4}]
+  },
   competitorsByLocation: {
     "Location A": [
       { id:"L", name:"Market Leader", visibility:82.0, citation:11.0 },
@@ -337,10 +359,10 @@ function squareOf(v,c){
   return {name:"Invisible",cls:"invis"};
 }
 const shortLoc = l => l.split(',')[0];
-const shortCat = c => (c.indexOf("Content")>=0||c.indexOf("Studio")>=0) ? "Studio" : (c.indexOf("Coworking")>=0 ? "Coworking" : (c.indexOf("Flexible")>=0 ? "Flexible" : c));
+const shortCat = c => c.split(/[ /]/)[0];
 const segBadge = s => shortLoc(s.loc)[0] + "·" + shortCat(s.cat)[0];   // e.g. N·S
 const segLabel = s => shortLoc(s.loc) + " · " + shortCat(s.cat);
-function isSelf(x){ const s=(x.u||x.n||"").toLowerCase(); return s.indexOf("amperstudios.com")>=0 || (x.n||"").toLowerCase().indexOf("ampersand")>=0; }
+function isSelf(x){ const s=(x.u||x.n||"").toLowerCase(); const dom=(DATA.domain||"").toLowerCase(), br=(DATA.brand||"").toLowerCase(); return (!!dom && s.indexOf(dom)>=0) || (!!br && (x.n||"").toLowerCase().indexOf(br)>=0); }
 
 /* ---------- element refs ---------- */
 const plot=document.getElementById('plot'), trail=document.getElementById('trail');
@@ -358,8 +380,10 @@ function selSegments(){
   return DATA.segments.filter(s=>(lo==="All"||s.loc===lo)&&(ca==="All"||s.cat===ca));
 }
 function selCompetitors(){
-  const lo=fLoc.value;
-  return (lo!=="All" && DATA.competitorsByLocation[lo]) ? DATA.competitorsByLocation[lo] : [];
+  const lo=fLoc.value, ca=fCat.value;
+  if(lo==="All") return [];                                  // overview: no competitors
+  if(ca!=="All") return (DATA.competitorsBySegment && DATA.competitorsBySegment[lo+"|"+ca]) || DATA.competitorsByLocation[lo] || [];  // category-specific competitors
+  return DATA.competitorsByLocation[lo] || [];               // location-level (all categories)
 }
 
 /* ---------- plot ---------- */
@@ -496,6 +520,8 @@ function updateTrendControls(){
   document.querySelectorAll('#segMetric button').forEach(b=>{ b.classList.toggle('on', b.dataset.m===trendMetric); b.disabled=(trendCompare==='platform'); });
   document.querySelectorAll('#segCompare button').forEach(b=> b.classList.toggle('on', b.dataset.c===trendCompare));
 }
+const TGEO={W:860,L:44,T:16,R:16,B:46};
+let curTrend=null;  // {series, xLabels} for hover
 function drawTrends(){
   const t=trendSeries();
   const effVis = t.forceVis || trendMetric==='visibility';
@@ -505,20 +531,40 @@ function drawTrends(){
   document.getElementById('trendchart').innerHTML=buildChart(t.series,t.xLabels,yMax,thr);
   document.getElementById('trendlegend').innerHTML=buildLegend(t.series);
   document.getElementById('trendnote').innerHTML=t.note||"";
+  curTrend={series:t.series, xLabels:t.xLabels, unit:'%'};
   updateTrendControls();
 }
-document.querySelectorAll('#segMetric button').forEach(b=>b.addEventListener('click',()=>{ if(b.disabled)return; trendMetric=b.dataset.m; drawTrends(); }));
-document.querySelectorAll('#segCompare button').forEach(b=>b.addEventListener('click',()=>{ trendCompare=b.dataset.c; if(trendCompare==='platform') trendMetric='visibility'; drawTrends(); }));
-
-/* ---------- master render ---------- */
-function render(){
-  updateStory(); updateCards(); drawTrends();
-  drawStatic();          // matrix is always the latest-report snapshot
-  renderTab();           // report history
+/* trends hover breakdown */
+const chartwrap=document.getElementById('chartwrap'), tguide=document.getElementById('tguide'), ttip=document.getElementById('ttip'), trendload=document.getElementById('trendload');
+function trendHover(e){
+  if(!curTrend) return;
+  const {W,L,R}=TGEO, n=curTrend.xLabels.length;
+  const rect=chartwrap.getBoundingClientRect(), scale=rect.width/W;
+  const xvb=(e.clientX-rect.left)/scale;
+  if(n<2 || xvb<L-4 || xvb>W-R+4){ tguide.style.display='none'; ttip.style.display='none'; return; }
+  let idx=Math.round((xvb-L)/(W-L-R)*(n-1)); idx=Math.max(0,Math.min(n-1,idx));
+  const px=(L+idx/(n-1)*(W-L-R))*scale;
+  tguide.style.left=px+'px'; tguide.style.display='block';
+  let h='<div class="td">'+curTrend.xLabels[idx]+'</div>';
+  curTrend.series.forEach(s=>{ h+='<div class="tr"><i style="background:'+s.color+'"></i>'+s.name+' <b>'+(+s.values[idx]).toFixed(s.values[idx]>=10?1:2)+'%</b></div>'; });
+  ttip.innerHTML=h; ttip.style.left=px+'px'; ttip.style.top=(e.clientY-rect.top)+'px'; ttip.style.display='block';
 }
-fLoc.addEventListener('change',render);
-fCat.addEventListener('change',render);
-fShowComp.addEventListener('change',()=>{ showComp=fShowComp.checked; render(); });
+chartwrap.addEventListener('mousemove',trendHover);
+chartwrap.addEventListener('mouseleave',()=>{ tguide.style.display='none'; ttip.style.display='none'; });
+/* loading feedback when the graph reloads */
+let _tload=null;
+function reloadTrends(){ trendload.classList.add('on'); tguide.style.display='none'; ttip.style.display='none'; clearTimeout(_tload); _tload=setTimeout(()=>{ drawTrends(); trendload.classList.remove('on'); }, 380); }
+
+document.querySelectorAll('#segMetric button').forEach(b=>b.addEventListener('click',()=>{ if(b.disabled)return; trendMetric=b.dataset.m; reloadTrends(); }));
+document.querySelectorAll('#segCompare button').forEach(b=>b.addEventListener('click',()=>{ trendCompare=b.dataset.c; if(trendCompare==='platform') trendMetric='visibility'; reloadTrends(); }));
+
+/* ---------- render ---------- */
+function renderInstant(){ updateStory(); updateCards(); drawStatic(); renderTab(); }  // everything except trends
+function render(){ renderInstant(); drawTrends(); }                                     // initial load
+function onFilterChange(){ renderInstant(); reloadTrends(); }                            // location/category change → matrix updates now, trends shows a loading state
+fLoc.addEventListener('change',onFilterChange);
+fCat.addEventListener('change',onFilterChange);
+fShowComp.addEventListener('change',()=>{ showComp=fShowComp.checked; renderInstant(); });
 
 foot.innerHTML='Sample data shown &mdash; replace the DATA block with real RankPrompt values (matrix-board skill). Visibility Score = share of tracked prompts where the brand is recommended. Citation Share = own-domain citations &divide; all citations. Thresholds: Visibility 25%, Citation 5% (4&ndash;5% is a soft edge). Report links append the report id to DATA.reportBase &mdash; use tokenized client share links when sending to a client.';
 
