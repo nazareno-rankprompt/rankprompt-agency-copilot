@@ -32,7 +32,10 @@ The point of the analysis is to land on **the mechanism** — the one real reaso
 
 4. **Per-segment cards.** For each location/category: the source-mix line + the **actual top cited URLs** (full clickable `https://…`), each tagged with source + page type, the brand's own pages highlighted, with citation counts. This is the surface you fetch from next.
 
-5. **Own-source surface + sitemap reconciliation.** List which of the brand's *own* pages AI cites and how often. Then fetch the sitemap and check, per losing segment: **does a matching page already exist?** Is it cited or ignored? Is it even in the AI sitemap / `llms.txt`? (Quiet Events had all 10 city pages — existence wasn't the problem.) This decides improve-vs-create.
+5. **Own-source surface — profile it BY PAGE TYPE, for every segment (winning ones too, not just losing).** List which of the brand's *own* pages AI cites and how often, then **profile them by page type** (listicle/guide · location page · homepage/entity · product/service · blog). Three questions, always:
+   - **Concentration = fragility.** Is the position resting on one or two assets of a single type (e.g. two listicles carry the whole category, and nothing else of the brand's is cited)? Even when Citation Share is HIGH, a win resting on 2 pages is fragile — **broadening which of the brand's pages get cited is a real play, not just "defend."**
+   - **Page-type gap vs competitors.** Which page types do rivals get cited that the brand doesn't? (Classic: competitors' *dealer homepages* cited 20× as entities and their *location/service pages* cited — while the brand's homepage is cited once and it has no location/service page.) That gap is the room to keep gaining territory: build/strengthen those owned page types so more of the brand's own pages earn citations.
+   - **Sitemap reconciliation (losing segments).** Does a matching page already exist? Is it cited or ignored? Is it in the AI sitemap / `llms.txt`? (Quiet Events had all 10 city pages — existence wasn't the problem.) This decides improve-vs-create.
 
 6. **The autopsy — fetch and compare.** For each priority segment, open the **top-cited winning page** (usually a competitor location or listicle page) and the brand's **matching own page**, and compare signal-by-signal in a table:
    - **Content** — word count, uniqueness, and **duplication across the brand's own pages** (are the city pages byte-for-byte templates? that's fatal).
@@ -47,6 +50,7 @@ The point of the analysis is to land on **the mechanism** — the one real reaso
    - **Technical must-dos** — uniqueness per page (kill duplication), title/meta tuned to intent, the schema types to add, internal links + add the page to the AI sitemap/llms.txt.
    - **Prioritized rollout** — start with zero-citation segments, then the weak cluster; note the reports already exist so it can be re-run monthly.
    - **The measurable target** — own citation share now → goal (e.g. 5.6% → 15–20%), tracked by re-running this audit.
+   - **For a segment the brand is already winning — expand, don't just defend.** If the win is concentrated (rests on 1–2 assets of one type) or competitors get page types cited that the brand doesn't, the plan is: (1) keep the winning assets fresh + add schema, AND (2) **build/strengthen the owned page types that aren't yet cited** — a real location page, an entity-strong homepage, a dedicated service page — so the position broadens instead of resting on a couple of listicles. That's how you keep gaining territory in a category you already lead.
 
 8. **Render.** Fill the `DATA` block in `template.html` → `out/<brand>-citation-audit.html`. Review, then print to PDF per `deliverable-design-rules` (`--virtual-time-budget=5000`, A4, no gradient text). Final files also copied to the client folder per the Final Output Rule.
 
@@ -59,7 +63,7 @@ The point of the analysis is to land on **the mechanism** — the one real reaso
 
 - **Actually fetch the pages.** The autopsy's whole value is real evidence — never characterize a page (word count, schema, duplication, framing) you didn't open. If a fetch fails, say so and mark it unverified; don't guess.
 - Categorize by **frequency**, never `rankprompt_score`.
-- Land on ONE mechanism per segment and prove it. Don't hand over a generic checklist.
+- Land on ONE mechanism per *losing* segment and prove it. For a *winning* segment the lens is different — profile the brand's own cited pages by type, and if the win is concentrated or a page-type gap exists vs competitors, say so and give the broaden-the-footprint play. Don't hand over a generic checklist.
 - Keep Visibility Score and Citation Share correctly labeled and never swapped.
 - **Both numbers must match the client's dashboard.** Visibility Score comes from the report; Citation Share you *compute the way the app does* (it isn't stored) — brand-domain count ÷ total citations within the report scope. If your Citation Share is far below the dashboard, you divided by the wrong universe (all-time all-source pool). Reconcile before you render, and never ship a "site is uncited" story that contradicts the dashboard.
 - Real data only — no invented URLs, counts, competitors, or page attributes.

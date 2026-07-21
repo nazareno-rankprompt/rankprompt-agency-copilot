@@ -30,7 +30,7 @@ A report blends categories and — for multi-region setups — locations. They h
 
 | Square | Visibility × Citation | What it means | The play |
 |---|---|---|---|
-| **Winning** | High × High | AI recommends you **and** cites your pages | Hold the lead: keep top pages fresh, watch competitors, expand into nearby prompts |
+| **Winning** | High × High | AI recommends you **and** cites your pages | Hold **and grow** the lead: keep top pages fresh + schema, watch competitors, expand into nearby prompts — and **broaden which of your own page types get cited.** If the win rests on 1–2 assets of one type (e.g. two listicles) while rivals get their location/home/entity pages cited, strengthen or build those owned pages so the position isn't fragile |
 | **Recommended, not sourced** | High × Low | AI recommends you but cites third parties | Publish owned content answering those prompts; make the site crawlable + structured; convert earned mentions into owned pages |
 | **Cited, not chosen** | Low × High | AI quotes your pages but recommends someone else | Sharpen positioning; earn reviews + reputation; get named inside comparisons and "best of" lists |
 | **Invisible** | Low × Low | Not recommended, not cited — a foundation problem | Build citable assets (guides, comparisons, FAQs); get into the listicles + directories AI reads; publish where models already look |
