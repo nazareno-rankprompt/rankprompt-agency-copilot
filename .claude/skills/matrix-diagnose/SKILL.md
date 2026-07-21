@@ -18,7 +18,7 @@ Turn a RankPrompt report into a plotted position on the AI Visibility Matrix plu
 
 2. **Compute the two numbers per segment — keep them separate and labeled:**
    - **Visibility Score** = share of the segment's prompts where the brand appears (`brand_appears` rate).
-   - **Citation Share** = brand's own-domain citations ÷ all citations for the segment.
+   - **Citation Share** = **read RankPrompt's own figure** (the dashboard Citation Share / Citation Rank panel; `rankprompt_get_report_summary` + `/citations/by-domain`) — do NOT recompute it by dividing raw citation lists. If RankPrompt doesn't give a per-segment cut, scope the denominator to that report/segment's citations via `/citations/by-domain`, **never the brand's all-time pool of every source**. Sanity-check: your number must reconcile with what the client sees in RankPrompt (see the denominator trap in `knowledge/matrix.md`).
    - Compute citation frequency yourself from `citations[]` grouped by the prompt's `category`. **Do not** use `rankprompt_score` for the diagnosis — it's listicle-biased and belongs only to outreach.
 
 3. **Name the square** using the thresholds (Visibility HIGH ≥25% / Citation HIGH ≥5%; 4–5% is a soft edge — call it, flag borderline):
@@ -45,5 +45,6 @@ Turn a RankPrompt report into a plotted position on the AI Visibility Matrix plu
 ## Guardrails
 
 - Never swap Visibility Score and Citation Share. They are different numbers and different problems.
+- **RankPrompt is the source of truth for both numbers.** Read Visibility Score and Citation Share from the platform. If your figure diverges from what the client sees in RankPrompt, RankPrompt is right and your denominator is wrong — never publish a number the client can't reconcile with their dashboard.
 - Never invent a number, citation, competitor, or URL. Pull it or say you don't have it.
 - One prioritized plan per segment, not a laundry list.

@@ -12,8 +12,10 @@ Both numbers come straight from RankPrompt report data. **Never swap them — th
 
 - **Visibility Score** (vertical) — how often AI *mentions/recommends* the brand when people ask questions in its space. This is the `brand_appears` rate across the segment's prompts.
   - **HIGH ≥ 25%** · **LOW < 25%**
-- **Citation Share** (horizontal) — of the sources AI *cites*, how many are the brand's own pages/domain. Own-domain citations ÷ all citations for the segment.
+- **Citation Share** (horizontal) — of the sources AI *cites*, how much is the brand's own domain. **RankPrompt already computes this and shows it on the dashboard (the Citation Share / Citation Rank panel). READ RANKPROMPT'S NUMBER — do not recompute it from raw citation lists.**
   - **HIGH ≥ 5%** · **LOW < 4%** (the 4–5% band is a soft edge — call it, but note it's borderline)
+  - **The denominator trap (this has burned us — do not repeat it):** if you ever compute a per-segment cut RankPrompt doesn't hand you, the denominator is the citations **within that report/segment** (use `/citations/by-domain`), **never the brand's entire all-time pool of every source across every prompt.** Dividing 28 own-domain citations by 4,030 all-time-everything sources gives a fake ~0.7% and a false "their site is uncited" story — when the real Citation Share is ~3.8% (rank #6 of cited domains). **Your figure must reconcile with what the client sees in RankPrompt; if it's wildly lower, you divided by the wrong universe — fix it, don't ship it.**
+  - **Not the same as share-of-voice-among-competitors.** "Citation Share" is the brand's own domain's share of all cited domains (RankPrompt's number). "Share of voice among competitors" (own domain vs *rival* domains only — e.g. dealer vs dealer) is a *different* cut with a *different, smaller* denominator, so it's a higher number. Both are useful; label each distinctly and never report one as the other.
 
 > Visibility = *are you recommended.* Citation = *are your own pages the reason.* A brand can be recommended without being cited (AI trusts third parties about you) or cited without being chosen (AI quotes your page but picks a competitor). One number hides that; two reveal it.
 

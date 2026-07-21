@@ -21,7 +21,7 @@ The point of the analysis is to land on **the mechanism** — the one real reaso
 
 ## Steps
 
-1. **Scope & segment.** Pick the category and/or location set. Compute per segment (see `matrix-diagnose`): **Visibility Score** (appear rate) and **Citation Share** (own-domain ÷ all cited links). Show a per-segment table; flag the winning and lagging segments.
+1. **Scope & segment.** Pick the category and/or location set. Per segment (see `matrix-diagnose`): **Visibility Score** (appear rate) and **Citation Share** — **read RankPrompt's figure, don't recompute it.** RankPrompt publishes Citation Share (rank among cited domains); use that. If you compute a segment cut, scope the denominator to that report's citations via `/citations/by-domain`, **never the brand's all-time all-source pool** — that produces a fake near-0% and a false "uncited site" story (see the denominator trap in `knowledge/matrix.md`). Show a per-segment table; flag the winning and lagging segments.
 
 2. **Field position.** Rank brands by mentions across all answers (share of voice) — where does the brand sit, and who are the real rivals to compare against?
 
@@ -61,4 +61,5 @@ The point of the analysis is to land on **the mechanism** — the one real reaso
 - Categorize by **frequency**, never `rankprompt_score`.
 - Land on ONE mechanism per segment and prove it. Don't hand over a generic checklist.
 - Keep Visibility Score and Citation Share correctly labeled and never swapped.
+- **RankPrompt is the source of truth for both numbers** — read them from the platform; if your Citation Share is far below RankPrompt's, you divided by the wrong universe (all-time all-source pool). Reconcile before you render, and never ship a "site is uncited" story that contradicts the dashboard.
 - Real data only — no invented URLs, counts, competitors, or page attributes.
